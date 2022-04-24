@@ -1,0 +1,23 @@
+{
+  "name": "gh-org",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gh-cli-for-education/gh-org-clone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gh-cli-for-education/gh-org-clone/issues"
+  },
+  "homepage": "https://github.com/gh-cli-for-education/gh-org-clone#readme",
+  "dependencies": {
+    "commander": "^9.2.0"
+  }
+}
