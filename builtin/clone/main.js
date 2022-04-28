@@ -1,7 +1,7 @@
 //@ts-check
-import * as commands from "./constants/commands.js"
-import * as queries from "./constants/queries.js"
-import * as utils from "./utils/utils.js"
+import * as commands from "../../utils/constants/commands.js"
+import * as queries from "../../utils/constants/queries.js"
+import * as utils from "../../utils/utils.js"
 import shell from "shelljs";
 import jq  from "node-jq"
 import tmp from "tmp";
@@ -9,7 +9,7 @@ import fs from "fs";
 
 "use strict"
 
-const checks = () => {
+const checks = () => { // TODO make some of this checks in tha main file
   if (!shell.which('git')) {
     console.error("Sorry, this extension requires git installed!");
     process.exit(1);
@@ -26,7 +26,7 @@ const checks = () => {
 };
 
 const chooseOrg = () => {
-  return utils.runCommand(commands.orgNames).trim();
+  return utils.runCommand(commands.chooseOrgName).trim();
 }
 
 /** @param org {string} */
@@ -34,10 +34,10 @@ const chooseRepo = async(org) => { // TODO delete this async
   if (!org) {
     throw("internal error. chooseRepo needs to know the organization");
   }
-  /** @type string */
-  let allRepos;
   let resultQuery = utils.executeQuery(queries.allRepos(org));
   const filter = ".data.organization.repositories.edges[].node.name"
+  /** @type string */
+  let allRepos;
   await jq.run(filter, resultQuery, {input: "string", output: "string"})
   .then(result => {
     if (typeof result === "string")

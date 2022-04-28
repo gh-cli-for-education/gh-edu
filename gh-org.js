@@ -1,5 +1,7 @@
 import { program } from "commander"
 import mainClone from './builtin/clone/main.js'
+import cd from './builtin/cd/cd.js'
+import pwd from './builtin/pwd/pwd.js'
 program
   .command("clone")
   .description("Clone all the repos from one organization")
@@ -8,15 +10,16 @@ program
   })
 program
   .command("cd")
-  .description("test")
-  .action(() => {
-    console.log("Hola")
+  .arguments("[orgName]")
+  .description("Set the default organization in the configuration")
+  .action((orgName) => {
+    cd(orgName);
   })
 program
   .command("pwd")
-  .description("test")
+  .description("Show the current default organization")
   .action(() => {
-    console.log("Hola")
+    pwd();
   })
 
 program.parse();

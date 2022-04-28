@@ -1,8 +1,15 @@
 //@ts-check
 import shell from "shelljs";
-/** @param command {string}*/
-export const runCommand = (command) => {
-  const shellString = shell.exec(command);
+/** 
+* @param command {string}
+* @param silent {boolean=} [silent=false]
+*/
+export const runCommand = (command, silent) => {
+  let shellString;
+  if (silent)
+    shellString = shell.exec(command, {silent: true});
+  else
+    shellString = shell.exec(command);
   return shellString.stdout;
 };
 
