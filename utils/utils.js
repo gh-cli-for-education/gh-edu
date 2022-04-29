@@ -1,5 +1,6 @@
 //@ts-check
 import shell from "shelljs";
+import { chooseOrgName, allOrgNames} from "./constants/commands.js"
 /** 
 * @param command {string}
 * @param silent {boolean=} [silent=false]
@@ -36,3 +37,16 @@ export const names2url = (repoNames) => {
 export const prefixOrg = (reposNames, org) => {
   return reposNames.map(repoName => org + '/' + repoName);
 };
+
+/**
+ * @param name {String=}
+*   @returns {string | undefined}
+ * */
+export const fetchOrgs = (name) => {
+  if (!name) {
+    return runCommand(chooseOrgName).trim(); // Delete "/n" at the end
+  }
+  const allOrgs = runCommand(allOrgNames, true).split("\n");
+  allOrgs.pop();
+  return allOrgs.find(orgName => orgName == name);
+}

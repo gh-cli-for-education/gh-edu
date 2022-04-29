@@ -1,8 +1,21 @@
 {
+  "defaultOrg": "",
   "cache": {
     "orgs": {
-      "testeo": {}
+      "PAI-ULL": {},
+      "ULL-ESIT-PL-2021": {},
+      "ULL-ESIT-LPP-2021": {},
+      "PlusPlus-Overflow": {},
+      "TIDEnfermedadCorazon": {},
+      "ULL-ESIT-PL-2122": {},
+      "vision-go": {},
+      "Sistemas-Inteligentes-ULL": {},
+      "ABDB-ULL": {},
+      "ADBD-MYSQL-PHP": {},
+      "CC-TrabajoGrupoNP": {},
+      "gh-cli-for-education": {},
+      "memoruOrg": {}
     }
   },
-  "defaultOrg": "testeo"
+  "commands": {}
 }
