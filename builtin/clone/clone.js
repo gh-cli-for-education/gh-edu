@@ -9,22 +9,6 @@ import fs from "fs";
 
 "use strict"
 
-const checks = () => { // TODO make some of this checks in tha main file
-  if (!shell.which('git')) {
-    console.error("Sorry, this extension requires git installed!");
-    process.exit(1);
-  }
-  if (!shell.which('gh')) {
-    console.error("Sorry, this extension requires gh installed!");
-    process.exit(1);
-  }
-  const user = shell.exec("gh api user", {silent: true})
-  if (!user) {
-    console.error("Please log-in in gh");
-    process.exit(1);
-  }
-};
-
 const chooseOrg = () => {
   return utils.runCommand(commands.chooseOrgName).trim();
 }
@@ -77,9 +61,8 @@ const cloneRepo = (urls, numberOfProcess = 2) => {
   }
 };
 
-export default async function main () {
-  checks();
-  let org = chooseOrg();
+export default async function main (org) { 
+  org = org || chooseOrg();
   let repos = await chooseRepo(org);
   cloneRepo(repos);
   console.log("Done!!")
