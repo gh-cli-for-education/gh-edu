@@ -1,23 +1,24 @@
 //@ts-check
 import { config, updateJSON } from '../../config.cjs'
 import * as utils from "../../utils/utils.js"
+import { allOrgNames } from "../../utils/constants//commands.js"
+import update from "../update/update.js"
 
-/** @param newDefaultOrg {string | undefined} */
+/** @param newDefaultOrg {string=} */
 export default function main(newDefaultOrg) {
-  if (newDefaultOrg) {
-    if (newDefaultOrg in config.cache.orgs) { // TODO Add autocompletion
-      config.defaultOrg = newDefaultOrg;
-    } else { // TODO Take the oportunity and Synchronize cache?
-      console.log("Not in cache, Synchronizing...") // TODO Add animation? Improve message
-      const result = utils.fetchOrgs(newDefaultOrg);
-      if (!result) {
+  if (!newDefaultOrg) {
+    config.defaultOrg = utils.fetchOrgs();
+  } else {
+    if (!(newDefaultOrg in config.cache.orgs)) {
+      console.log("Requesting organizations info") // TODO Add animation?
+      // const result = utils.fetchOrgs(newDefaultOrg);
+      update({ cache: true });
+      if (!(newDefaultOrg in config.cache.orgs)) { // Try again, now cache is updated
         console.error("That organization couldn't be found:\n" + newDefaultOrg);
         return
       }
-      config.defaultOrg = result;
     }
-  } else { // TODO add options for cache
-    config.defaultOrg = utils.fetchOrgs();
+    config.defaultOrg = newDefaultOrg;
   }
   updateJSON(config);
 }

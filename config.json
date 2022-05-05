@@ -1,5 +1,5 @@
 {
-  "defaultOrg": "",
+  "defaultOrg": "memoruOrg",
   "cache": {
     "orgs": {
       "PAI-ULL": {},
@@ -13,7 +13,8 @@
       "ABDB-ULL": {},
       "ADBD-MYSQL-PHP": {},
       "CC-TrabajoGrupoNP": {},
-      "gh-cli-for-education": {}
+      "gh-cli-for-education": {},
+      "memoruOrg": {}
     }
   },
   "commands": {
