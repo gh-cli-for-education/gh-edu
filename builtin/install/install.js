@@ -6,16 +6,16 @@ export default function main(plugin) {
   const isFirstParty = !/.*\/gh-org.*/.test(plugin);
   let url = "";
   if (isFirstParty)
-    url = "https://github.com/gh-cli-for-education/gh-org-" + plugin;
+    url = "https://github.com/gh-cli-for-education/gh-edu-" + plugin;
   else
     url = "https://github.com/" + plugin;
   const output = shell.exec("gh extension install " + url);
-  if (output.stderr) {
-    return;
-  }
   config.commands = {
     [plugin]: {},
     ...config.commands
   }
   updateJSON(config);
+  if (output.stderr) {
+    return;
+  }
 }

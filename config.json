@@ -16,5 +16,7 @@
       "gh-cli-for-education": {}
     }
   },
-  "commands": {}
+  "commands": {
+    "view": {}
+  }
 }
