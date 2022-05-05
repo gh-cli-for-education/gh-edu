@@ -32,7 +32,7 @@ program
   .option('-o --org <org>', 'Use as organization')
   .option('-q --quiet', 'Don\'t output any warning or information message')
   .action((options) => {
-    if (config.defaultOrg === "" || options.quiet) {
+    if (config.defaultOrg === "" && !options.quiet) {
       console.log("No organization set as default");
     }
     clone(options.org || config.defaultOrg || undefined); // TODO do I need undefined here?

@@ -8,7 +8,7 @@ export default function main(newDefaultOrg) {
     if (newDefaultOrg in config.cache.orgs) { // TODO Add autocompletion
       config.defaultOrg = newDefaultOrg;
     } else { // TODO Take the oportunity and Synchronize cache?
-      console.log("Not in cache, Synchronizing...") // TODO Add animation?
+      console.log("Not in cache, Synchronizing...") // TODO Add animation? Improve message
       const result = utils.fetchOrgs(newDefaultOrg);
       if (!result) {
         console.error("That organization couldn't be found:\n" + newDefaultOrg);
@@ -16,7 +16,7 @@ export default function main(newDefaultOrg) {
       }
       config.defaultOrg = result;
     }
-  } else {
+  } else { // TODO add options for cache
     config.defaultOrg = utils.fetchOrgs();
   }
   updateJSON(config);
