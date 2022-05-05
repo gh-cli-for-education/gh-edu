@@ -86,11 +86,9 @@ for (const plugin of plugins) {
   program
     .command(plugin)
     .action(() => {
-      const shellString = shell.exec(__dirname + "/../gh-edu-" + plugin + "/gh-edu-" + plugin + "1> /dev/null 2> /dev/null");
-      if (shellString.stdout)
-        console.log(shellString.stdout);
-      if (shellString.code == 127)
-        console.error(plugin + " is not installed\nExecute gh edu install <plugin>");
+      const shellString = shell.exec(__dirname + "/../gh-edu-" + plugin + "/gh-edu-" + plugin + " 2> /dev/null");
+      if (shellString.code == 127) // doesn't find the binary
+        console.error(`${plugin} is not installed\nPlease use gh edu remove command to remove plugins, or install it again`);
     })
 }
 
