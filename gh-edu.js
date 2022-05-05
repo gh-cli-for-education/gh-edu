@@ -2,6 +2,7 @@ import { program } from "commander"
 import clone from './builtin/clone/clone.js'
 import cd from './builtin/cd/cd.js'
 import pwd from './builtin/pwd/pwd.js'
+import remove from './builtin/remove/remove.js'
 import install from './builtin/install/install.js'
 import update from './builtin/update/update.js'
 import shell from "shelljs";
@@ -72,9 +73,15 @@ program
   .action((options) => {
     update(options);
   })
+program
+  .command("remove")
+  .argument("<plug-in...>", "Name[s] of the plug-in you want to remove")
+  .action((plugin) => {
+    remove(plugin);
+  })
 
+/** Add installed third party plugins */
 let plugins = Object.keys(config.commands)
-console.log(plugins);
 for (const plugin of plugins) {
   program
     .command(plugin)
@@ -83,10 +90,5 @@ for (const plugin of plugins) {
       shell.exec(__dirname + "/../gh-edu-" + plugin + "/gh-edu-" + plugin);
     })
 }
-
-let test = "test"
-program
-  .command(test)
-  .action(() => {console.log("Hola")})
 
 program.parse();

@@ -10,12 +10,13 @@ export default function main(plugin) {
   else
     url = "https://github.com/" + plugin;
   const output = shell.exec("gh extension install " + url);
+  if (output.stderr) {
+    return;
+  }
   config.commands = {
     [plugin]: {},
     ...config.commands
   }
   updateJSON(config);
-  if (output.stderr) {
-    return;
-  }
+  console.log(`${plugin} installed`);
 }
