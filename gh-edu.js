@@ -86,8 +86,11 @@ for (const plugin of plugins) {
   program
     .command(plugin)
     .action(() => {
-      console.log(__dirname + "/../gh-edu-" + plugin + "/gh-edu-" + plugin);
-      shell.exec(__dirname + "/../gh-edu-" + plugin + "/gh-edu-" + plugin);
+      const shellString = shell.exec(__dirname + "/../gh-edu-" + plugin + "/gh-edu-" + plugin + "1> /dev/null 2> /dev/null");
+      if (shellString.stdout)
+        console.log(shellString.stdout);
+      if (shellString.code == 127)
+        console.error(plugin + " is not installed\nExecute gh edu install <plugin>");
     })
 }
 
