@@ -7,6 +7,14 @@ import update from './builtin/update/update.js'
 import shell from "shelljs";
 import { config } from './config.cjs'
 
+/** _dirname doesnt work with modules */
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+/***/
+
 if (!shell.which('git')) {
   console.error("Sorry, this extension requires git installed!");
   process.exit(1);
@@ -64,5 +72,21 @@ program
   .action((options) => {
     update(options);
   })
+
+let plugins = Object.keys(config.commands)
+console.log(plugins);
+for (const plugin of plugins) {
+  program
+    .command(plugin)
+    .action(() => {
+      console.log(__dirname + "/../gh-edu-" + plugin + "/gh-edu-" + plugin);
+      shell.exec(__dirname + "/../gh-edu-" + plugin + "/gh-edu-" + plugin);
+    })
+}
+
+let test = "test"
+program
+  .command(test)
+  .action(() => {console.log("Hola")})
 
 program.parse();
