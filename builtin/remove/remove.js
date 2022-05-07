@@ -8,10 +8,11 @@ export default function main(plugins) {
       console.error(`${plugin} plugin is not installed`)
       return;
     }
-    const output = shell.exec("gh extension remove gh-edu-" + plugin);
+    const output = shell.exec("gh extension remove " + config.commands[plugin].originalName.replace("*./", ""));
     if (output.stderr) {
       return;
     }
+    delete config.commands[plugin];
     console.log(`${plugin} removed`);
   };
 

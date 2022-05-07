@@ -86,10 +86,27 @@ for (const plugin of plugins) {
   program
     .command(plugin)
     .action(() => {
-      const shellString = shell.exec(__dirname + "/../gh-edu-" + plugin + "/gh-edu-" + plugin + " 2> /dev/null");
-      if (shellString.code == 127) // doesn't find the binary
-        console.error(`${plugin} is not installed\nPlease use gh edu remove command to remove plugins, or install it again`);
+      const {code, stdout, stderr} = shell.exec(__dirname + "/../gh-edu-" + plugin + "/gh-edu-" + plugin, {silent: true}); // TODO '/' depents on the OS use path.join
+      if (stdout) {
+        process.stdout.write(stdout);
+      }
+      if (code != 0) {
+        if (code == 127) // doesn't find the binary
+          console.error(`${plugin} is not installed\nPlease use gh edu remove command to remove plugins, or install it again`);
+        else
+          console.error(stderr);
+      }
     })
 }
+// TODO does this scale well enough?, should I use a wildcard?
+// program
+// .version(...)
+// .command(...)
+// .on('*', function (command) {
+//   this.commands.some(function (command) {
+//     return command._name === argv[0];
+//   }) || this.help();
+// })
+// parse(...);
 
 program.parse();

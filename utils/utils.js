@@ -45,3 +45,5 @@ export const fetchOrgs = (name) => {
   allOrgs.pop();
   return allOrgs.find(orgName => orgName == name);
 }
+
+export const isFirstParty = plugin => !(/.*\/.*/.test(plugin));
