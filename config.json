@@ -2,20 +2,299 @@
   "defaultOrg": "memoruOrg",
   "cache": {
     "orgs": {
-      "PAI-ULL": {},
-      "ULL-ESIT-PL-2021": {},
-      "ULL-ESIT-LPP-2021": {},
-      "PlusPlus-Overflow": {},
-      "TIDEnfermedadCorazon": {},
-      "ULL-ESIT-PL-2122": {},
-      "vision-go": {},
-      "Sistemas-Inteligentes-ULL": {},
-      "ABDB-ULL": {},
-      "ADBD-MYSQL-PHP": {},
-      "CC-TrabajoGrupoNP": {},
-      "gh-cli-for-education": {},
-      "memoruOrg": {}
+      "PAI-ULL": {
+        "members": [
+          "Alberto Cabrera Pérez",
+          "Francisco de Sande",
+          "Oscar Moreira",
+          "alu0101211770",
+          "Aitor Hernández Sánchez",
+          "Daniel del Castillo",
+          "Luis Leon, Jeremy",
+          "Marta González",
+          "Vanessa Villalba",
+          "Cristo García",
+          "Alberto Cruz Luis",
+          "Carlos Garcia",
+          "Adal Díaz Fariña",
+          "Eduardo Expósito",
+          "Daniel Barroso Rocío",
+          "Javier Correa",
+          "Andrés Zeus Hernández impini",
+          "Sebastián Tamayo",
+          "Marcos Barrios",
+          "Viren Sajju Dhanwani Dhanwani",
+          "Francisco Jesus Mendes Gomez",
+          "Gabriel García Jaubert",
+          "J. Daniel Escánez",
+          "Pablo Bande Sánchez - Girón",
+          "Nerea Rodríguez"
+        ]
+      },
+      "ULL-ESIT-PL-2021": {
+        "members": [
+          "Casiano Rodriguez-Leon",
+          "Norberto",
+          "Gabriel Melian Hernandez",
+          "Oscar Moreira",
+          "alu0101038377",
+          "alu0101040929",
+          "alu0101211770",
+          "Christian Pérez",
+          "Christian Pérez Hdez",
+          "Alberto Delgado",
+          "Aitor Hernández Sánchez",
+          "Adrián Epifanio Rodríguez Hernández",
+          "Daniel del Castillo",
+          "Marcos Rodríguez Vega",
+          "Eduardo Estévez Rodríguez",
+          "Daniel Palenzuela Álvarez",
+          "Luis Leon, Jeremy",
+          "Adrián ",
+          "Marta González",
+          "Vanessa Villalba",
+          "Christian Torres Gonzalez",
+          "Sergio Tabares Hernández",
+          "Dani Oria",
+          "David Hernández Suárez",
+          "Cristo García",
+          "Alberto Cruz Luis",
+          "Nicolás Cabrera",
+          "Carlos Garcia",
+          "Adal Díaz Fariña",
+          "Eduardo Expósito",
+          "Daniel Barroso Rocío",
+          "Moisés Antonio Pestano Castro",
+          "Francisco Javier Garcia Gonzalez",
+          "Javier Correa",
+          "Andrés Zeus Hernández impini",
+          "Sebastián Tamayo",
+          "Markus",
+          "Marcos Barrios",
+          "Viren Sajju Dhanwani Dhanwani",
+          "Francisco Jesus Mendes Gomez",
+          "Gabriel García Jaubert",
+          "J. Daniel Escánez",
+          "Pablo Bande Sánchez - Girón",
+          "Aram Pérez Dios",
+          "Nerea Rodríguez",
+          "Israel López Plata",
+          "alumnoudv5 for testing  by crguezl"
+        ]
+      },
+      "ULL-ESIT-LPP-2021": {
+        "members": [
+          "Coromoto Leon",
+          "Gabriel Melian Hernandez",
+          "Cristian González Alonso",
+          "Carlos García González",
+          "Diego Vázquez Campos",
+          "Carlos Delgado",
+          "alu0100953275",
+          "Oscar Moreira",
+          "Alejandro Dorta",
+          "Brian Santana",
+          "Daniel Dóniz García",
+          "Ángel Julián Bolaño Campos",
+          "Óscar Ignacio Pozo Fernández",
+          "alu0101040929",
+          "Jorge Acevedo",
+          "Alejandro Martín de León",
+          "alu0101211770",
+          "Aitor Hernández Sánchez",
+          "alu0101100494",
+          "Daniel Rodríguez Martín",
+          "Adrián Epifanio Rodríguez Hernández",
+          "Adrián Ramos Mejías",
+          "Miguel Alejandro Martín",
+          "Daniel del Castillo",
+          "Marcos Rodríguez Vega",
+          "Jacobo Labrador",
+          "Adán de la Rosa Lugo",
+          "Adrián ",
+          "Andrea Calero Caro",
+          "Marta González",
+          "Vanessa Villalba",
+          "alu0101120584",
+          "Leonardo Dorta Bejarano",
+          "Christian Torres Gonzalez",
+          "Carlos Socas García",
+          "Alejandro Medina",
+          "Sergio Tabares Hernández",
+          "Adrián Melián Fernández",
+          "Dani Oria",
+          "Óscar Cigala Álvarez",
+          "Carlos Pío Reyes",
+          "Alba Morales Martín",
+          "Jose Acosta",
+          "Sergio",
+          "Cristo García",
+          "Jorge Niebla Núñez",
+          "Néstor Torres",
+          "Nicolás Cabrera",
+          "Rafa Cala",
+          "elenasalazar26",
+          "Eduardo Da Silva ",
+          "Elvis Nogueiras",
+          "Alejandro Estévez Chinea",
+          "Karina",
+          "Daniel Álvarez Medina",
+          "Alberto Mendoza Rodríguez",
+          "Dayana Armas Alonso",
+          "Enrique Álvarez Mesa",
+          "Carlos Garcia",
+          "Adal Díaz Fariña",
+          "Edgar",
+          "Eduardo Expósito",
+          "Daniel Barroso Rocío",
+          "Sandro Jesús Socas Méndez",
+          "Francisco Javier Garcia Gonzalez",
+          "Marcos Jesús Santana Ramos",
+          "Antonella García",
+          "Alberto Ravelo Cordobés",
+          "alu0101068855",
+          "Carlota",
+          "Jackson Heskeil Díaz Gorrín",
+          "Daniel Fuentes",
+          "Javier Correa",
+          "Andrés Zeus Hernández impini",
+          "Sebastián Tamayo",
+          "Markus",
+          "Borja Guanche",
+          "Marcos Barrios",
+          "David",
+          "Sergio P",
+          "Viren Sajju Dhanwani Dhanwani",
+          "Francisco Jesus Mendes Gomez",
+          "Gabriel García Jaubert",
+          "J. Daniel Escánez",
+          "Yago Pérez Molanes",
+          "Pablo Bande Sánchez - Girón",
+          "Sheyla-Actil-bot",
+          "Aram Pérez Dios",
+          "Nerea Rodríguez"
+        ]
+      },
+      "PlusPlus-Overflow": {
+        "members": [
+          "Cristo García"
+        ]
+      },
+      "TIDEnfermedadCorazon": {
+        "members": [
+          "Sergio Tabares Hernández",
+          "Cristo García",
+          "Carlos Garcia",
+          "Eduardo Expósito"
+        ]
+      },
+      "ULL-ESIT-PL-2122": {
+        "members": [
+          "Casiano Rodriguez-Leon",
+          "Casiano",
+          "Gabriel Melian Hernandez",
+          "Carlos García González",
+          "alu0100953275",
+          "Daniel Dóniz García",
+          "Aitor Hernández Sánchez",
+          "Adrián Epifanio Rodríguez Hernández",
+          "Marcos Rodríguez Vega",
+          "David Arteaga",
+          "Dani Oria",
+          "alu0101129884",
+          "Cristo García",
+          "Alberto Cruz Luis",
+          "Andrés Pérez",
+          "Nicolás Cabrera",
+          "Rafa Cala",
+          "Ayob Asrout Vargas",
+          "Airam Rafael Luque León",
+          "Gerard CV",
+          "DanielHdez",
+          "Enrique Álvarez Mesa",
+          "Adal Díaz Fariña",
+          "alu0101317496",
+          "Juan García Santos",
+          "Helena",
+          "Pablo Pérez González",
+          "Juan Salvador Magariños Alba",
+          "Enrique Viña Alonso",
+          "Alejandro García Perdomo",
+          "Guillermo Zafra",
+          "Moisés Antonio Pestano Castro",
+          "Francisco Javier Garcia Gonzalez",
+          "Jaime Armas Rivero",
+          "Jorge Cabrera Rodríguez",
+          "Daniel García Hernández",
+          "Diego Perez Garcia",
+          "Lorenzo Gabriel Pérez González",
+          "Gabriel Rodríguez Hernández",
+          "Edwin Plasencia Hernández",
+          "Dario Cerviño Luridiana",
+          "Francisco José Rodríguez Ruesgas",
+          "Andrés Zeus Hernández impini",
+          "Sebastián Tamayo",
+          "Markus",
+          "Marcos Barrios",
+          "Francisco Jesus Mendes Gomez",
+          "Pablo Bande Sánchez - Girón",
+          "Aram Pérez Dios",
+          "Israel López Plata",
+          "Jorge González Delgado",
+          "Nicolás Cabrera"
+        ]
+      },
+      "vision-go": {
+        "members": [
+          "Cristo García",
+          "Andrés Zeus Hernández impini"
+        ]
+      },
+      "Sistemas-Inteligentes-ULL": {
+        "members": [
+          "Cristo García",
+          "Eduardo Expósito"
+        ]
+      },
+      "ABDB-ULL": {
+        "members": [
+          "Cristo García"
+        ]
+      },
+      "ADBD-MYSQL-PHP": {
+        "members": [
+          "Jaime Simeón Palomar Blumenthal",
+          "Cristo García",
+          "Alberto Cruz Luis"
+        ]
+      },
+      "CC-TrabajoGrupoNP": {
+        "members": [
+          "Cristo García",
+          "Alberto Cruz Luis",
+          "Carlos Garcia",
+          "Eduardo Expósito",
+          "Andrés Zeus Hernández impini"
+        ]
+      },
+      "gh-cli-for-education": {
+        "members": [
+          "Charlotte Curtis",
+          "Casiano Rodriguez-Leon",
+          "Cristo García"
+        ]
+      },
+      "memoruOrg": {
+        "members": [
+          "Cristo García",
+          "Eduardo Expósito"
+        ]
+      }
     }
   },
-  "commands": {}
+  "commands": {
+    "view": {
+      "originalName": "gh-cli-for-education/gh-edu-view"
+    }
+  }
 }

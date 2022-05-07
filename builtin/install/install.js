@@ -34,13 +34,10 @@ async function check (plugin) {
 export default async function main(plugin) {
   if (await check(plugin))
     return;
-  let url = "";
   if (utils.isFirstParty(plugin)) {
-    plugin = "gh-edu-" + plugin;
-    url = "https://github.com/gh-cli-for-education/" + plugin
-  } else {
-    url = "https://github.com/" + plugin;
+    plugin = "gh-cli-for-education/gh-edu-" + plugin;
   }
+  const url = "https://github.com/" + plugin;
   let installedName = plugin.replace(/.*\//, "").replace("gh-", "").replace("edu-", "");
   const builtinFiles = await builtinFilesPromise; // I don't check if it is a file or a directory
   while (installedName in config.commands || builtinFiles.includes(installedName) ) {

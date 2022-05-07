@@ -85,8 +85,8 @@ let plugins = Object.keys(config.commands)
 for (const plugin of plugins) {
   program
     .command(plugin)
-    .action(() => {
-      const {code, stdout, stderr} = shell.exec(__dirname + "/../gh-edu-" + plugin + "/gh-edu-" + plugin, {silent: true}); // TODO '/' depents on the OS use path.join
+    .action((_, commandObj) => {
+      const {code, stdout, stderr} = shell.exec(__dirname + "/../gh-edu-" + plugin + "/gh-edu-" + plugin + ` ${commandObj.args}`, {silent: true}); // TODO '/' depents on the OS use path.join
       if (stdout) {
         process.stdout.write(stdout);
       }

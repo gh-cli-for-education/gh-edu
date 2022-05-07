@@ -1,20 +1,47 @@
 //@ts-check
 import shell from "shelljs";
-import { chooseOrgName, allOrgNames} from "./constants/commands.js"
+import { chooseOrgName, allOrgNames } from "./constants/commands.js"
 /** 
 * @param command {string}
 * @param silent {boolean} [silent=false]
 */
-export const runCommand = (command, silent=false) => {
-  return shell.exec(command, {silent}).stdout;
+export const runCommand = (command, silent = false) => {
+  const result = shell.exec(command, { silent });
+  if (silent && result.code != 0) {
+    process.stderr.write(result.stderr);
+  }
+  return result.stdout;
 };
 
+const usersFromOrgQuery = (org) => `
+query ($endCursor: String) {
+  organization(login: "${org}") {
+    membersWithRole(first: 60, after: $endCursor) {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      edges {
+        node {
+          name
+        }
+      }
+    }
+  }
+}
+`;
+export const getMembersFromOrg = (org, silent = false) => {
+  let members = executeQuery(usersFromOrgQuery(org), "--jq '.data.organization.membersWithRole.edges[].node.name | select(.)'").split("\n");
+  members.pop();
+  return members
+}
+
 /** @param query {string}*/
-export const executeQuery = (query) => {
-  let command = `gh api graphql --paginate -f query='${query}'`;
+export const executeQuery = (query, ...options) => {
+  let command = `gh api graphql --paginate ${options} -f query='${query}'`;
   let queryResult = shell.exec(command, { silent: true });
-  if (queryResult.code !== 0 || queryResult.length === 0) {
-    console.error("No repos found in org")
+  if (queryResult.code !== 0) {
+    process.stderr.write(queryResult.stderr);
     process.exit(1);
   }
   return queryResult.stdout;
