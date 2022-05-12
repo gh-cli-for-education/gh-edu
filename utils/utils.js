@@ -14,23 +14,6 @@ export const runCommand = (command, silent = false) => {
   return result.stdout;
 };
 
-// const usersFromOrgQuery = (org) => `
-// query ($endCursor: String) {
-//   organization(login: "${org}") {
-//     membersWithRole(first: 60, after: $endCursor) {
-//       pageInfo {
-//         endCursor
-//         hasNextPage
-//       }
-//       edges {
-//         node {
-//           name
-//         }
-//       }
-//     }
-//   }
-// }
-// `;
 const usersFromOrgQuery = (org) => `
 query ($endCursor: String) {
   organization(login: "${org}") {

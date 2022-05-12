@@ -6,6 +6,7 @@ export default function reset(options) {
   if (options.force) {
     config.commands = {}; // Not a good idea to unistall this way
   }
+  config.identifierR = '';
   updateJSON(config);
   console.log("Done!!!");
 }

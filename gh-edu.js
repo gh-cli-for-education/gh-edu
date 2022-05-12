@@ -1,6 +1,6 @@
 import { program } from "commander"
 import clone from './builtin/clone/clone.js'
-import cd from './builtin/cd/cd.js'
+import set from './builtin/set/set.js'
 import get from './builtin/get/get.js'
 import remove from './builtin/remove/remove.js'
 import install from './builtin/install/install.js'
@@ -48,11 +48,14 @@ program
     clone(options.org || config.defaultOrg || undefined); // TODO do I need undefined here?
   })
 program
-  .command("cd")
-  .arguments("[orgName]")
-  .description("Set the default organization in the configuration")
-  .action((orgName) => {
-    cd(orgName);
+  .command("set")
+  .arguments("[value]")
+  .option("-o, --org", "Set organization")
+  .option("-i, --identifier", "Regex for the member identifier. Ex: alu[0-9]{10,10} for alu0101204512")
+  .option("-q --quit", "Don't show any log or warning information. The result will be printed anyway")
+  .description("Set some values in the configuration file")
+  .action((value, config) => {
+    set(value, config);
   })
 program
   .command("get")

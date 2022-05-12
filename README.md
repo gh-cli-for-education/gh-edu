@@ -17,7 +17,7 @@ More solutions will be available for diferents languages
 - ``-f, --force`` will not ask for user input.
 - The options ``-s, --silence``, will mute log information and user input.
 These options have been designed with scripting in mind.
-Output result ignore these flags.
+Output results and errors ignore these flags.
 
 Upload node\_modules to github the gh installation process doesn't install any 
 dependency
