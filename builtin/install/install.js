@@ -41,7 +41,7 @@ export default async function main(plugin) {
   let installedName = plugin.replace(/.*\//, "").replace("gh-", "").replace("edu-", "");
   const builtinFiles = await builtinFilesPromise; // I don't check if it is a file or a directory
   while (installedName in config.commands || builtinFiles.includes(installedName) ) {
-    console.log("There is already a plugin with that name: ", installedName);
+    console.log(`There is already a plugin with that name (${installedName})`);
     await inquirer.prompt([
       {
         type: 'input',
