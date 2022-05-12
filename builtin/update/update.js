@@ -3,9 +3,13 @@ import { allOrgNames } from '../../utils/constants/commands.js';
 import { config, updateJSON } from '../../config.cjs'
 import * as utils from "../../utils/utils.js"
 
-/** TODO Add more update options */
-export default function main(options) {
+export function update(options) {
   console.log("Updating organization info in cache");
+  updateJSON(updateLocalConfig(config, options));
+  console.log("Update successful");
+}
+
+export function updateLocalConfig(config, options) {
   if (options.cache) {
     let allOrgs = utils.runCommand(allOrgNames, true).split("\n");
     allOrgs.pop();
@@ -17,6 +21,5 @@ export default function main(options) {
       };
     }
   }
-  updateJSON(config);
-  console.log("Update successful");
+  return config;
 }

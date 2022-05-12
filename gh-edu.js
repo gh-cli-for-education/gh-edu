@@ -1,10 +1,11 @@
 import { program } from "commander"
 import clone from './builtin/clone/clone.js'
 import cd from './builtin/cd/cd.js'
-import pwd from './builtin/pwd/pwd.js'
+import get from './builtin/get/get.js'
 import remove from './builtin/remove/remove.js'
 import install from './builtin/install/install.js'
-import update from './builtin/update/update.js'
+import { update } from './builtin/update/update.js'
+import reset from './builtin/reset/reset.js';
 import shell from "shelljs";
 import { config } from './config.cjs'
 
@@ -54,10 +55,13 @@ program
     cd(orgName);
   })
 program
-  .command("pwd")
+  .command("get")
   .description("Show the current default organization")
-  .action(() => {
-    pwd();
+  .option("-m, --members", "List community members")
+  .option("-p, --plugins", "List the installed plugins")
+  .option("-o, --organization", "Return the current organization")
+  .action((options) => {
+    get(options);
   })
 program
   .command("install")
@@ -79,6 +83,14 @@ program
   .action((plugin) => {
     remove(plugin);
   })
+program
+  .command("reset")
+  .option("-f, --force", "Reset everything, even installed commands. Only use if you are certain")
+  .description("Set config in default state.\n" +
+    "If you are calling this command because of some error in the configuration, please contact a member of the organization")
+  .action((options) => {
+    reset(options);
+  })
 
 /** Add installed third party plugins */
 let plugins = Object.keys(config.commands)
@@ -86,7 +98,7 @@ for (const plugin of plugins) {
   program
     .command(plugin)
     .action((_, commandObj) => {
-      const {code, stdout, stderr} = shell.exec(__dirname + "/../gh-edu-" + plugin + "/gh-edu-" + plugin + ` ${commandObj.args}`, {silent: true}); // TODO '/' depents on the OS use path.join
+      const { code, stdout, stderr } = shell.exec(__dirname + "/../gh-edu-" + plugin + "/gh-edu-" + plugin + ` ${commandObj.args}`, { silent: true }); // TODO '/' depents on the OS use path.join
       if (stdout) {
         process.stdout.write(stdout);
       }
