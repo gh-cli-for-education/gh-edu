@@ -7,7 +7,7 @@ import { chooseOrgName, allOrgNames } from "./constants/commands.js"
 */
 export const runCommand = (command, silent = false) => {
   const result = shell.exec(command, { silent });
-  if (silent && result.code != 0) {
+  if (!silent && result.code != 0) {
     console.error("Internal error: runCommand: ", command);
     process.stderr.write(result.stderr);
   }

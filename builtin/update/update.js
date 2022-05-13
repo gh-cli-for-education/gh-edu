@@ -4,9 +4,13 @@ import { config, updateJSON } from '../../config.cjs'
 import * as utils from "../../utils/utils.js"
 
 export function update(options) {
-  console.log("Updating organization info in cache");
-  updateJSON(updateLocalConfig(config, options));
-  console.log("Update successful");
+  const newConfig = updateLocalConfig(config, options);
+  if (newConfig) {
+    updateJSON(newConfig);
+    console.log("Update successful");
+    return;
+  }
+  console.log("Update: No option selected");
 }
 
 export function updateLocalConfig(config, options) {
@@ -20,6 +24,14 @@ export function updateLocalConfig(config, options) {
         members,
       };
     }
+    return config;
   }
-  return config;
+  if (options.plugin) {
+    console.log("Updating plugins");
+    for (let command in config.commands) {
+      command = config.commands[command].originalName.split('/')[1];
+      utils.runCommand("gh extension upgrade " + command);
+    }
+    return config;
+  }
 }

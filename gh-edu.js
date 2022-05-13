@@ -11,7 +11,7 @@ import { config } from './config.cjs'
 
 /** _dirname doesnt work with modules */
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import path, { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -76,6 +76,7 @@ program
 program
   .command("update")
   .option("-c, --cache", "Update your cache")
+  .option("-p, --plugin", "Update plugins")
   .description("Update your configuration")
   .action((options) => {
     update(options);
@@ -101,12 +102,13 @@ for (const plugin of plugins) {
   program
     .command(plugin)
     .action((_, commandObj) => {
-      const { code, stdout, stderr } = shell.exec(__dirname + "/../gh-edu-" + plugin + "/gh-edu-" + plugin + ` ${commandObj.args}`, { silent: true }); // TODO '/' depents on the OS use path.join
+      const path = __dirname + "/../gh-edu-" + plugin + "/gh-edu-";
+      const { code, stdout, stderr } = shell.exec(path + plugin + ` ${commandObj.args}`, { silent: true }); // TODO '/' depents on the OS use path.join
       if (stdout) {
         process.stdout.write(stdout);
       }
       if (code != 0) {
-        if (code == 127) // doesn't find the binary
+        if (code == 127) // doesn't found the binary
           console.error(`${plugin} is not installed\nPlease use gh edu remove command to remove plugins, or install it again`);
         else
           console.error(stderr);
