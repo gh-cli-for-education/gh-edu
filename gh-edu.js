@@ -103,7 +103,7 @@ for (const plugin of plugins) {
     .command(plugin)
     .action((_, commandObj) => {
       const path = __dirname + "/../gh-edu-" + plugin + "/gh-edu-";
-      const { code, stdout, stderr } = shell.exec(path + plugin + ` ${commandObj.args}`, { silent: true }); // TODO '/' depents on the OS use path.join
+      const { code, stdout, stderr } = shell.exec(path + plugin + ` ${commandObj.args}`, { silent: false }); // TODO '/' depents on the OS use path.join
       if (stdout) {
         process.stdout.write(stdout);
       }
