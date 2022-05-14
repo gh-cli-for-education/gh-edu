@@ -103,10 +103,10 @@ for (const plugin of plugins) {
     .command(plugin)
     .action((_, commandObj) => {
       const path = __dirname + "/../gh-edu-" + plugin + "/gh-edu-";
-      const { code, stdout, stderr } = shell.exec(path + plugin + ` ${commandObj.args}`, { silent: true }); // TODO '/' depents on the OS use path.join
-      if (stdout) {
-        process.stdout.write(stdout);
-      }
+      const { code, stdout, stderr } = shell.exec(path + plugin + ` ${commandObj.args}`, { silent: false }); // TODO '/' depents on the OS use path.join
+      // if (stdout) {
+      //   process.stdout.write(stdout);
+      // }
       if (code != 0) {
         if (code == 127) // doesn't found the binary
           console.error(`${plugin} is not installed\nPlease use gh edu remove command to remove plugins, or install it again`);
