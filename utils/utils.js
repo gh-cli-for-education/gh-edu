@@ -1,7 +1,7 @@
 //@ts-check
 import shell from "shelljs";
 import { chooseOrgName, allOrgNames } from "./constants/commands.js"
-/** 
+/**
 * @param command {string}
 * @param silent {boolean} [silent=false]
 */
@@ -13,6 +13,8 @@ export const runCommand = (command, silent = false) => {
   }
   return result.stdout;
 };
+
+export const beautify = json => JSON.stringify(JSON.parse(json), null, 2)
 
 const usersFromOrgQuery = (org) => `
 query ($endCursor: String) {
