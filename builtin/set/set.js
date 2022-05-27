@@ -9,9 +9,7 @@ function selectOrg(newDefaultOrg, config = cnf) {
   if (!(newDefaultOrg in config.cache.orgs)) {
     console.log("Not in cache. Fetching... (Cache will be updated)");
     config = updateOneOrg(newDefaultOrg, config);
-    // config = updateLocalConfig(config, { cache: true });
     if (!(newDefaultOrg in config.cache.orgs)) { // Try again, now cache is updated
-      // console.error("That organization couldn't be found:\n" + newDefaultOrg);
       return
     }
   }

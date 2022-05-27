@@ -30,9 +30,18 @@ export function updateLocalConfig(config, options) {
   }
   if (options.plugin) {
     console.log("Updating plugins");
-    for (let command in config.commands) {
-      command = config.commands[command].originalName.split('/')[1];
-      utils.runCommand("gh extension upgrade " + command);
+    for (const command in config.commands) {
+      let name = config.commands[command].originalName.split('/')[1];
+      let result = shell.exec("gh extension upgrade " + name, { silent: true });
+      if (result.stdout === "" && result.stderr === "") { // TODO test if this work when a plugin is upgraded
+        console.log(command, "already up to date");
+      }
+      else if (result.code !== 0 ) {
+        process.stderr.write(result.stderr);
+      } else {
+        const lastCommit = result.stdout.match(/[0-9a-f]{5,40}$/);
+        config.command[command].lastCommit = lastCommit;
+      }
     }
     return config;
   }
