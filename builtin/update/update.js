@@ -2,6 +2,8 @@
 import { allOrgNames } from '../../utils/constants/commands.js';
 import { config, updateJSON } from '../../config.cjs'
 import * as utils from "../../utils/utils.js"
+import shell from "shelljs";
+import chalk from 'chalk';
 
 export function update(options) {
   const newConfig = updateLocalConfig(config, options);
@@ -34,4 +36,19 @@ export function updateLocalConfig(config, options) {
     }
     return config;
   }
+}
+
+const orgExists = (org) => `gh api --paginate /user/memberships/orgs/${org}`;
+export function updateOneOrg(org, config) {
+  let doesExists = shell.exec(orgExists(org), { silent: true });
+  if (doesExists.code !== 0) {
+    // console.error("That organization couldn't be found:\n" + newDefaultOrg);
+    process.stderr.write(chalk.red(doesExists.stderr));
+    return config;
+  }
+  let members = utils.getMembersFromOrg(org, true);
+  config.cache.orgs[org] = {
+    members,
+  };
+  return config;
 }

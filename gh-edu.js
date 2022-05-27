@@ -97,7 +97,9 @@ program
   })
 
 /** Add installed third party plugins */
-let plugins = Object.keys(config.commands)
+let plugins = [];
+if (config.command) // In case config is totally malformed
+  plugins = Object.keys(config.commands)
 for (const plugin of plugins) {
   program
     .command(plugin)

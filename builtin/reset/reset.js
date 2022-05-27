@@ -1,12 +1,16 @@
 import { config, updateJSON } from '../../config.cjs'
 
 export default function reset(options) {
-  config.defaultOrg = "";
-  config.cache.orgs = {};
-  if (options.force) {
-    config.commands = {}; // Not a good idea to unistall this way
+  let newConfig = {};
+  newConfig.defaultOrg = "";
+  newConfig.cache = {};
+  newConfig.cache.orgs = {};
+  if (options.force || !newConfig.commands) {
+    newConfig.commands = {}; // Not a good idea to unistall this way
+  } else {
+    newConfig.commands = config.commands;
   }
-  config.identifierR = '';
-  updateJSON(config);
+  newConfig.identifierR = '';
+  updateJSON(newConfig);
   console.log("Done!!!");
 }

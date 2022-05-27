@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/gh-cli-for-education/gh-org-clone#readme",
   "dependencies": {
+    "chalk": "^5.0.1",
     "commander": "^9.2.0",
     "inquirer": "^8.2.4",
     "node-jq": "^2.3.3",
