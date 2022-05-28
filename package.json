@@ -18,11 +18,17 @@
   },
   "homepage": "https://github.com/gh-cli-for-education/gh-org-clone#readme",
   "dependencies": {
+    "@types/inquirer": "^8.2.1",
+    "@types/shelljs": "^0.8.11",
+    "@types/tmp": "^0.2.3",
     "chalk": "^5.0.1",
     "commander": "^9.2.0",
     "inquirer": "^8.2.4",
     "node-jq": "^2.3.3",
     "shelljs": "^0.8.5",
     "tmp": "^0.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.36"
   }
 }
