@@ -1,12 +1,18 @@
 import fs from 'fs';
-const configPath = process.cwd() + "/config.json";
+/** _dirname doesnt work with modules */
+import { fileURLToPath } from 'url';
+import path from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+/***/
+const configPath = __dirname + "/../config.json";
 export let config;
-if (!fs.existsSync("config.json")) {
+if (!fs.existsSync(configPath)) {
     console.log("No config file detected");
     console.log("Creating new config...");
-    fs.copyFileSync("./utils/config.template.json", "config.json", fs.constants.COPYFILE_EXCL);
+    fs.copyFileSync(__dirname + "/../utils/config.template.json", configPath, fs.constants.COPYFILE_EXCL);
 }
-config = JSON.parse(fs.readFileSync("config.json", { encoding: "utf8" }));
+config = JSON.parse(fs.readFileSync(configPath, { encoding: "utf8" }));
 export const updateJSON = (content) => {
     fs.writeFileSync(configPath, JSON.stringify(content, null, 2));
 };

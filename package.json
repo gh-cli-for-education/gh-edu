@@ -1,9 +1,9 @@
 {
-  "name": "gh-org",
+  "name": "gh-edu",
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "index.js",
+  "main": "gh-edu",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

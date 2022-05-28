@@ -9,6 +9,14 @@ import reset from './builtin/reset/reset.js';
 import shell from "shelljs";
 import { config } from './config.js'
 
+/** _dirname doesnt work with modules */
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+/***/
+
 if (!shell.which('git')) {
   console.error("Sorry, this extension requires git installed!");
   process.exit(1);
@@ -96,7 +104,7 @@ for (const plugin of plugins) {
   program
     .command(plugin)
     .action((_, commandObj) => {
-      const path = process.cwd() + "/../gh-edu-" + plugin + "/gh-edu-";
+      const path = __dirname + "/../gh-edu-" + plugin + "/gh-edu-";
       const { code, stderr } = shell.exec(path + plugin + ` ${commandObj.args}`, { silent: false }); // TODO '/' depents on the OS use path.join
       if (code != 0) {
         if (code == 127) // doesn't found the binary

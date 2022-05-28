@@ -1,7 +1,7 @@
 import { config } from '../../config.js';
 import * as utils from '../../utils/utils.js';
 import fs from 'fs';
-/** _dirname doesnt work with modules */ // TODO change with process.cwd()?
+/** _dirname doesnt work with modules */
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
