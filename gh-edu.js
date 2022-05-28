@@ -1,3 +1,4 @@
+import fs from 'fs'
 import { program } from "commander"
 import clone from './builtin/clone/clone.js'
 import set from './builtin/set/set.js'
