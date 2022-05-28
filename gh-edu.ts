@@ -9,14 +9,6 @@ import reset from './builtin/reset/reset.js';
 import shell from "shelljs";
 import { config } from './config.js'
 
-/** _dirname doesnt work with modules */
-// import { fileURLToPath } from 'url';
-// import path, { dirname } from 'path';
-//
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
-/***/
-
 if (!shell.which('git')) {
   console.error("Sorry, this extension requires git installed!");
   process.exit(1);
