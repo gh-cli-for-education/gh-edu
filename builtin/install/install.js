@@ -1,5 +1,5 @@
 //@ts-check
-// TODO This file needs to be heavily tested
+// This file needs to be heavily tested
 import { config, updateJSON } from '../../config.cjs'
 import shell from "shelljs";
 import inquirer from 'inquirer';
