@@ -3,11 +3,6 @@
   "cache": {
     "orgs": {}
   },
-  "commands": {
-    "data": {
-      "originalName": "gh-cli-for-education/gh-edu-data",
-      "lastCommit": "d3da62de"
-    }
-  },
+  "commands": {},
   "identifierR": ""
 }
