@@ -3,15 +3,6 @@
   "cache": {
     "orgs": {}
   },
-  "commands": {
-    "data": {
-      "originalName": "gh-cli-for-education/gh-edu-data",
-      "lastCommit": "d3da62de"
-    },
-    "view": {
-      "originalName": "gh-cli-for-education/gh-edu-view",
-      "lastCommit": "1ea9b099"
-    }
-  },
+  "commands": {},
   "identifierR": ""
 }
