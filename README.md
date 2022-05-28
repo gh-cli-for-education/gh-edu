@@ -8,7 +8,7 @@ To load the configuration file you can add this code (js/ts)
 ```js
 /** Load configuration */
 import fs from 'fs'
-const stringConfig = fs.readFileSync(process.cwd() + "/../gh-edu/js/config.json", { encoding: "utf8", flag: "r" })
+const stringConfig = fs.readFileSync(process.cwd() + "/../gh-edu/config.json", { encoding: "utf8", flag: "r" })
 const config = JSON.parse(stringConfig);
 /** END loadConfig */
 ```
