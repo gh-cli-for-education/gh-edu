@@ -1,5 +1,19 @@
 [WIP]
 
+## Working with this version of gh-edu
+
+1. Install
+  
+  ```
+  gh extension install gh-cli-for-education/gh-edu
+  ```
+2. Move to the instalation folder and create and change to local branch `js`:
+
+  ```
+  cd ~/.local/share/gh/gh-edu
+  git checkout -b js origin/js
+  ```
+
 ## Keep in mind
 As plugins artists you have total freedom to develop the extension as you want.
 But for consistency's sake keep in mind the next points:
