@@ -20,6 +20,15 @@
   cp config.old.json ~/.local/share/gh/extensions/gh-edu/config.json
   ```
 
+4. Use only plugins extensions compatible with this version (plugin branch `js`):
+
+  ```
+  ➜  gh-edu git:(js) gh edu-data team
+  Warning: 2 members in this team. Skip
+  ...
+  [ ... ] 
+  ``` 
+
 ## Keep in mind
 As plugins artists you have total freedom to develop the extension as you want.
 But for consistency's sake keep in mind the next points:
