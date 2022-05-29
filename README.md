@@ -14,6 +14,12 @@
   git checkout -b js origin/js
   ```
 
+3. Copy your previously saved config file onto the installation folder
+
+  ```
+  cp config.old.json ~/.local/share/gh/extensions/gh-edu/config.json
+  ```
+
 ## Keep in mind
 As plugins artists you have total freedom to develop the extension as you want.
 But for consistency's sake keep in mind the next points:
