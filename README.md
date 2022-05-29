@@ -7,6 +7,27 @@
   ```
   gh extension install gh-cli-for-education/gh-edu
   ```
+
+  Alternatively you can use the `--pin` option:
+
+  ```
+  ➜  ~ gh extension install gh-cli-for-education/gh-edu --pin js
+  Clonando en '/Users/casianorodriguezleon/.local/share/gh/extensions/gh-edu'...
+  ...
+  Nota: cambiando a 'a4c10c512ef5883cf1eea97ede64faf6ca6d10ec'.
+  ...
+  HEAD está ahora en a4c10c5 README.md
+  ✓ Installed extension gh-cli-for-education/gh-edu
+  ✓ Pinned extension at js
+  ```
+  If you do this, create a local branch `js`:
+
+  ```
+  ➜  ~ cd ~/.local/share/gh/extensions/gh-edu
+  ➜  gh-edu git:(a4c10c5) ✗ git branch
+  ➜  gh-edu git:(a4c10c5) ✗ git co -b js
+  Cambiado a nueva rama 'js's
+  ```
 2. Move to the instalation folder and create and change to local branch `js`:
 
   ```
