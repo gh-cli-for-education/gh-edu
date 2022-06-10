@@ -1,4 +1,3 @@
-//@ts-check
 import * as commands from "../../utils/constants/commands.js";
 import * as queries from "../../utils/constants/queries.js";
 import * as utils from "../../utils/utils.js";
@@ -6,7 +5,6 @@ import shell from "shelljs";
 import jq from "node-jq";
 import tmp from "tmp";
 import fs from "fs";
-"use strict";
 const chooseOrg = () => {
     return utils.runCommand(commands.chooseOrgName).trim();
 };

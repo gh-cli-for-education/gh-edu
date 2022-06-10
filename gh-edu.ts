@@ -51,7 +51,8 @@ program
   .command("set")
   .arguments("[value]")
   .option("-o, --org", "Set organization")
-  .option("-i, --identifier", "Regex for the member identifier. Ex: alu[0-9]{10,10} for alu0101204512")
+  .option("-i, --identifier", "Regex for the member identifier. Ex: alu[0-9]{10} for alu0101204512")
+  .option("-a, --assignment", "Regex for the current assignment. Ex: turingMachine-* for turingMachine-alu0101204512")
   .option("-q --quit", "Don't show any log or warning information. The result will be printed anyway")
   .description("Set some values in the configuration file")
   .action((value, config) => {

@@ -24,7 +24,8 @@ export interface configType {
       lastCommit: string
     }
   },
-  identifierR: string
+  identifierR: string,
+  assignment: string
 }
 
 export let config: configType;

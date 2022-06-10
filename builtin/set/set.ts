@@ -18,6 +18,7 @@ function selectOrg(newDefaultOrg?: string, config = cnf) {
 interface optionObject {
   org: boolean
   identifier: boolean
+  assignment: boolean
   quiet: boolean
 }
 
@@ -32,6 +33,13 @@ export default function main(value: string | undefined, options: optionObject) {
     if (value === undefined) value = "";
     cnf.identifierR = value;
     updateJSON(cnf);
+    if (!options.quiet) console.log("New identifier regex set to: ", cnf.identifierR);
+  }
+  if (options.assignment) {
+    if (value === undefined) value = "";
+    cnf.assignment = value;
+    updateJSON(cnf);
+    if (!options.quiet) console.log("Current assignment set to: ", cnf.assignment);
   }
 }
 

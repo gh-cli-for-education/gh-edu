@@ -23,7 +23,6 @@ export default async function main(options: optionsType) {
     console.error("Get command only work with one option at a time");
     return;
   }
-
   if (options.members) {
     if (config.defaultOrg) {
       if (!config.cache.orgs[config.defaultOrg])
@@ -33,7 +32,6 @@ export default async function main(options: optionsType) {
       console.log("No current organization configured");
       config.defaultOrg = utils.fetchOrgs();
     }
-
   } else if (options.plugins) {
     const builtinFiles = await builtinFilesPromise; // I don't check if it is a file or a directory
     if (builtinFiles.length > 0) {
@@ -46,7 +44,6 @@ export default async function main(options: optionsType) {
       console.log("External commands:");
       console.log(JSON.stringify(config.commands, null, 2));
     }
-
   } else if (options.organization) {
     console.log(config.defaultOrg ? config.defaultOrg : "The organization is not set")
   }

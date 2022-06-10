@@ -28,5 +28,15 @@ export default function main(value, options) {
             value = "";
         cnf.identifierR = value;
         updateJSON(cnf);
+        if (!options.quiet)
+            console.log("New identifier regex set to: ", cnf.identifierR);
+    }
+    if (options.assignment) {
+        if (value === undefined)
+            value = "";
+        cnf.assignment = value;
+        updateJSON(cnf);
+        if (!options.quiet)
+            console.log("Current assignment set to: ", cnf.assignment);
     }
 }
