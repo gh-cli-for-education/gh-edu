@@ -100,7 +100,9 @@ for (const plugin of plugins) {
     program
         .command(plugin)
         .action((_, commandObj) => {
-        const path = __dirname + "/../gh-edu-" + plugin + "/gh-edu-";
+        const path = __dirname + "/../../gh-edu-" + plugin + "/gh-edu-";
+        console.log("path", path);
+        console.log("args:", commandObj.args);
         const { code, stderr } = shell.exec(path + plugin + ` ${commandObj.args}`, { silent: false }); // TODO '/' depents on the OS use path.join
         if (code != 0) {
             if (code == 127) // doesn't found the binary

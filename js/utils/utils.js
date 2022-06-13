@@ -1,4 +1,3 @@
-//@ts-check
 import shell from "shelljs";
 import { chooseOrgName } from "./constants/commands.js";
 export const runCommand = (command, silent = false) => {
@@ -34,12 +33,31 @@ export const executeQuery = (query, ...options) => {
     let command = `gh api graphql --paginate ${options} -f query='${query}'`;
     let queryResult = shell.exec(command, { silent: true });
     if (queryResult.code !== 0) {
-        console.error("Internal error: executeQuery.");
-        console.error("command: ", command);
-        process.stderr.write(queryResult.stderr);
-        process.exit(1);
+        let message = "Internal error: executeQuery\ncommand:\n";
+        message += queryResult.stderr;
+        // console.error("Internal error: executeQuery.");
+        // console.error("command: ", command);
+        // process.stderr.write(queryResult.stderr);
+        // process.exit(1);
+        throw message;
     }
     return queryResult.stdout;
+};
+/*
+* tryExecuteQuery is like executeQuery but returns true if it was successful, false otherwise
+* */
+export const tryExecuteQuery = (query, debug = false, ...options) => {
+    try {
+        const result = executeQuery(query, ...options);
+        if (debug)
+            console.log(result);
+        return true;
+    }
+    catch (e) {
+        if (debug)
+            console.error(e);
+        return false;
+    }
 };
 export const names2url = (repoNames) => {
     let urls = repoNames.map(repoName => runCommand("gh browse -n --repo " + repoName));

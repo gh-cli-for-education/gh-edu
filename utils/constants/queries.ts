@@ -1,4 +1,3 @@
-/** @param org {string} */
 export const allRepos = (org: string) => `
 query($endCursor: String) {
   organization(login: "${org}") {
@@ -16,3 +15,16 @@ query($endCursor: String) {
   }
 }
 `;
+
+/*
+* Return the same repository from the GitHub API. Is used to check repository existence
+* */
+export const identityRepo = (repo: string) => `
+query {
+  viewer {
+    repository(name: "${repo}", followRenames: false) {
+      url
+    }
+  }
+}
+`
