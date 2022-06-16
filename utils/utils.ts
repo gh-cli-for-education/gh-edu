@@ -3,7 +3,7 @@ import { chooseOrgName } from "./constants/commands.js"
 
 export const runCommand = (command: string, silent = false) => {
   const result = shell.exec(command, { silent });
-  if (!silent && result.code != 0) {
+  if (silent && result.code != 0) {
     console.error("Internal error: runCommand: ", command);
     process.stderr.write(result.stderr);
   }
@@ -50,16 +50,16 @@ export const executeQuery = (query: string, ...options: string[]) => {
 };
 
 /*
-* tryExecuteQuery is like executeQuery but returns true if it was successful, false otherwise
+* tryExecuteQuery is like executeQuery but it also returns true if it was successful or false otherwise
 * */
-export const tryExecuteQuery = (query: string, debug = false, ...options: string[]): boolean => {
+export const tryExecuteQuery = (query: string, debug = false, ...options: string[]): [any, boolean] => {
   try {
     const result = executeQuery(query, ...options)
     if (debug) console.log(result)
-    return true
+    return [result, true]
   } catch(e) {
     if (debug) console.error(e)
-    return false
+    return [{}, false]
   }
 }
 

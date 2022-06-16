@@ -78,13 +78,15 @@ program
   .command("update")
   .option("-c, --cache", "Update your cache")
   .option("-p, --plugin", "Update plugins")
+  .option("-f, --fetch", "Update configuration file in remote")
+  .option("-r, --remote", "Update local configuration file")
   .description("Update your configuration")
   .action((options) => {
     update(options);
   })
 program
   .command("remove")
-  .argument("<plug-in...>", "Name[s] of the plug-in you want to remove")
+  .argument("<plug-in...>", "Name[s] of the plugin you want to remove")
   .action((plugin) => {
     remove(plugin);
   })

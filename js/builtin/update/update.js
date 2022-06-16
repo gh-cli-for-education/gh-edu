@@ -1,18 +1,22 @@
 import { allOrgNames } from '../../utils/constants/commands.js';
+import { configName, remoteConfigName } from '../../utils/constants/constants.js';
 import { config, updateJSON } from '../../config.js';
 import * as utils from "../../utils/utils.js";
+import * as queries from "../../utils/constants/queries.js";
 import shell from "shelljs";
 import chalk from 'chalk';
-export function update(options) {
-    const newConfig = updateLocalConfig(config, options);
+import inquirer from 'inquirer';
+import tmp from 'tmp';
+export async function update(options) {
+    const newConfig = await updateLocalConfig(config, options);
     if (newConfig) {
         updateJSON(newConfig);
-        console.log("Update successful");
+        // console.log("Update successful");
         return;
     }
     console.log("Update: No option selected");
 }
-export function updateLocalConfig(config, options) {
+export async function updateLocalConfig(config, options) {
     if (options.cache) {
         let allOrgs = utils.runCommand(allOrgNames, true).split("\n");
         allOrgs.pop();
@@ -23,7 +27,6 @@ export function updateLocalConfig(config, options) {
                 members,
             };
         }
-        return config;
     }
     if (options.plugin) {
         console.log("Updating plugins");
@@ -47,8 +50,49 @@ export function updateLocalConfig(config, options) {
                 }
             }
         }
-        return config;
     }
+    if (options.remote) {
+        await updateRemoteConfig();
+    }
+    if (options.fetch) {
+        console.log("options fetch");
+    }
+    return config;
+}
+async function updateRemoteConfig() {
+    const getRemoteRepo = () => {
+        return utils.tryExecuteQuery(queries.identityRepo(remoteConfigName), false, queries.identityRepoFilter);
+    };
+    let [url, ok] = getRemoteRepo();
+    if (!ok) {
+        console.log("No configuration file detected in remote");
+        await inquirer.prompt([
+            {
+                type: 'confirm',
+                name: 'confirmation',
+                message: 'Create (private) repository?',
+                default: true,
+            }
+        ]).then(({ confirmation }) => {
+            if (!confirmation) {
+                console.log("Configuration couldn't be updated");
+                return;
+            }
+            utils.runCommand(`gh repo create ${remoteConfigName} --private -d "Configuration file for the gh-edu ecosystem"`);
+            [url, ok] = getRemoteRepo();
+            if (!ok) {
+                console.log(chalk.red(`error: repository ${remoteConfigName} could not be created`));
+                return;
+            }
+            console.log(`Repository ${remoteConfigName} created`);
+        });
+    }
+    const tmpDir = tmp.dirSync();
+    utils.runCommand(`git init ${tmpDir.name}`, true);
+    shell.cp(configName, tmpDir.name);
+    utils.runCommand(`git -C ${tmpDir.name} add ${configName}`, true);
+    utils.runCommand(`git -C ${tmpDir.name} commit -a -m "Update from gh-edu-system"`, true);
+    utils.runCommand(`git -C ${tmpDir.name} push -f ${url}`, true);
 }
 const orgExists = (org) => `gh api --paginate /user/memberships/orgs/${org}`;
 export function updateOneOrg(org, config) {

@@ -1,17 +1,17 @@
 import fs from 'fs'
 import tmp from 'tmp'
+import { runCommand, tryExecuteQuery } from './utils/utils.js';
+import * as queries from './utils/constants/queries.js'
+import { remoteConfigName} from './utils/constants/constants.js'
+
 /** _dirname doesnt work with modules */
 import { fileURLToPath } from 'url';
 import path from 'path';
-import { executeQuery, runCommand, tryExecuteQuery } from './utils/utils.js';
-import * as queries from './utils/constants/queries.js'
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 /***/
 
 const configPath = __dirname + "/../config.json"
-const repoName = "gh-edu-profile"
 
 export interface configType {
   defaultOrg: string,
@@ -33,14 +33,14 @@ export interface configType {
 }
 
 function fetchConfigFile(): boolean {
-  const result = tryExecuteQuery(queries.identityRepo(repoName));
+  const result = tryExecuteQuery(queries.identityRepo(remoteConfigName));
   if (!result) {
     console.log("No configuration file detected in remote");
     return false;
   }
   console.log("Remote config file detected")
   const tmpFile = tmp.dirSync();
-  runCommand(`gh repo clone ${repoName} ${tmpFile.name}`, true);
+  runCommand(`gh repo clone ${remoteConfigName} ${tmpFile.name}`, true);
   runCommand(`mv ${tmpFile.name}/config.json .`, true);
   console.log("Configuration file dowloaded")
   return true;
