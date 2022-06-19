@@ -19,7 +19,7 @@ function fetchConfigFile() {
     console.log("Remote config file detected");
     const tmpFile = tmp.dirSync();
     runCommand(`gh repo clone ${remoteConfigName} ${tmpFile.name}`, true);
-    runCommand(`mv ${tmpFile.name}/config.json .`, true);
+    runCommand(`mv ${tmpFile.name}/config.json ${configPath}`, true);
     console.log("Configuration file dowloaded");
     return true;
 }
@@ -32,6 +32,7 @@ if (!fs.existsSync(configPath)) {
     }
 }
 config = JSON.parse(fs.readFileSync(configPath, { encoding: "utf8" }));
+// TODO validate config.json
 export const updateJSON = (content) => {
     fs.writeFileSync(configPath, JSON.stringify(content, null, 2));
 };

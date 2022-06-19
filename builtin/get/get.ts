@@ -15,7 +15,8 @@ const builtinFilesPromise = fs.promises.readdir(__dirname + "/../");
 interface optionsType {
   members: Boolean,
   plugins: Boolean,
-  organization: Boolean
+  organization: Boolean,
+  configuration: Boolean,
 }
 
 export default async function main(options: optionsType) {
@@ -46,5 +47,7 @@ export default async function main(options: optionsType) {
     }
   } else if (options.organization) {
     console.log(config.defaultOrg ? config.defaultOrg : "The organization is not set")
+  } else if (options.configuration) {
+    console.log(config)
   }
 }

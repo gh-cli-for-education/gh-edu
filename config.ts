@@ -2,7 +2,7 @@ import fs from 'fs'
 import tmp from 'tmp'
 import { runCommand, tryExecuteQuery } from './utils/utils.js';
 import * as queries from './utils/constants/queries.js'
-import { remoteConfigName} from './utils/constants/constants.js'
+import { remoteConfigName } from './utils/constants/constants.js'
 
 /** _dirname doesnt work with modules */
 import { fileURLToPath } from 'url';
@@ -41,7 +41,7 @@ function fetchConfigFile(): boolean {
   console.log("Remote config file detected")
   const tmpFile = tmp.dirSync();
   runCommand(`gh repo clone ${remoteConfigName} ${tmpFile.name}`, true);
-  runCommand(`mv ${tmpFile.name}/config.json .`, true);
+  runCommand(`mv ${tmpFile.name}/config.json ${configPath}`, true);
   console.log("Configuration file dowloaded")
   return true;
 }
@@ -56,6 +56,8 @@ if (!fs.existsSync(configPath)) {
 }
 
 config = JSON.parse(fs.readFileSync(configPath, { encoding: "utf8" }));
+
+// TODO validate config.json
 
 export const updateJSON = (content: configType) => {
   fs.writeFileSync(configPath, JSON.stringify(content, null, 2));

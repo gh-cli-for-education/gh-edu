@@ -40,4 +40,7 @@ export default async function main(options) {
     else if (options.organization) {
         console.log(config.defaultOrg ? config.defaultOrg : "The organization is not set");
     }
+    else if (options.configuration) {
+        console.log(config);
+    }
 }

@@ -32,7 +32,7 @@ export async function updateLocalConfig(config, options) {
         console.log("Updating plugins");
         for (const command in config.commands) {
             let name = config.commands[command].originalName.split('/')[1];
-            let result = shell.exec("gh extension upgrade " + name, { silent: true });
+            let result = shell.exec("gh extension upgrade " + name, { silent: true }); // TODO Also install plugins from config
             if (result.stdout === "" && result.stderr === "") { // TODO test if this work when a plugin is upgraded
                 console.log(command, "already up to date");
             }

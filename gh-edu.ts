@@ -64,6 +64,7 @@ program
   .option("-m, --members", "List community members")
   .option("-p, --plugins", "List the installed plugins")
   .option("-o, --organization", "Return the current organization")
+  .option("-c, --configuration", "Return the loaded configuration")
   .action((options) => {
     get(options);
   })
@@ -93,7 +94,7 @@ program
 program
   .command("reset")
   .option("-f, --force", "Reset everything, even installed commands. Only use if you are certain")
-  .description("Set config in default state.\n" +
+  .description("Set config in default state, installed commands are ignored\n" +
     "If you are calling this command because of some error in the configuration, please contact a member of the organization")
   .action((options) => {
     reset(options);
@@ -106,16 +107,18 @@ if (config.commands) // In case config is malformed and doesn't have commands
 for (const plugin of plugins) {
   program
     .command(plugin)
-    .action((_, commandObj) => {
-      const path = __dirname + "/../../gh-edu-" + plugin + "/gh-edu-";
-      console.log("path", path)
-      console.log("args:", commandObj.args)
-      const { code, stderr } = shell.exec(path + plugin + ` ${commandObj.args}`, { silent: false }); // TODO '/' depents on the OS use path.join
+    .option("-f, --force")
+    .action((hola, commandObj) => {
+      // const path = __dirname + "/../../gh-edu-" + plugin + "/gh-edu-";
+      // const { code, stderr } = shell.exec(path + plugin + ` ${commandObj.args}`, { silent: false }); // TODO '/' depents on the OS use path.join
+      console.log("hola:", hola)
+      console.log("commandObj:", commandObj.args);
+      const { code, stderr } = shell.exec(`gh extension exec edu-${plugin}`, { silent: false }); // TODO '/' depents on the OS use path.join
       if (code != 0) {
         if (code == 127) // doesn't found the binary
           console.error(`${plugin} is not installed\nPlease use gh edu remove command to remove plugins, or install it again`);
-        else
-          console.error(stderr);
+        // else
+          // console.error(stderr);
       }
     })
 }
