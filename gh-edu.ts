@@ -107,30 +107,17 @@ if (config.commands) // In case config is malformed and doesn't have commands
 for (const plugin of plugins) {
   program
     .command(plugin)
-    .option("-f, --force")
-    .action((hola, commandObj) => {
-      // const path = __dirname + "/../../gh-edu-" + plugin + "/gh-edu-";
-      // const { code, stderr } = shell.exec(path + plugin + ` ${commandObj.args}`, { silent: false }); // TODO '/' depents on the OS use path.join
-      console.log("hola:", hola)
-      console.log("commandObj:", commandObj.args);
-      const { code, stderr } = shell.exec(`gh extension exec edu-${plugin}`, { silent: false }); // TODO '/' depents on the OS use path.join
+    .allowUnknownOption(true)
+    .helpOption(false)
+    .action((_, commandObj) => {
+      // const path = __dirname + "/../../gh-edu-" + plugin + "/gh-edu-"; // TODO '/' depents on the OS use path.join
+      // const { code, stderr } = shell.exec(path + plugin + ` ${commandObj.args}`, { silent: false });
+      const { code, stderr } = shell.exec(`gh extension exec edu-${plugin} ${commandObj.args}`, { silent: false });
       if (code != 0) {
         if (code == 127) // doesn't found the binary
           console.error(`${plugin} is not installed\nPlease use gh edu remove command to remove plugins, or install it again`);
-        // else
-          // console.error(stderr);
       }
     })
 }
-// TODO does this scale well enough?, should I use a wildcard?
-// program
-// .version(...)
-// .command(...)
-// .on('*', function (command) {
-//   this.commands.some(function (command) {
-//     return command._name === argv[0];
-//   }) || this.help();
-// })
-// parse(...);
 
 program.parse();
