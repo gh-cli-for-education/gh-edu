@@ -91,23 +91,18 @@ program
     .command("reset")
     .option("-f, --force", "Reset everything, even installed commands. Only use if you are certain")
     .description("Set config in default state, installed commands are ignored\n" +
-    "If you are calling this command because of some error in the configuration, please contact a member of the organization")
+    "If you are calling this command because of some error in the configuration, please open a issue")
     .action((options) => {
     reset(options);
 });
 /** Add installed third party plugins */
-let plugins = [];
-if (config.commands) // In case config is malformed and doesn't have commands
-    plugins = Object.keys(config.commands);
-for (const plugin of plugins) {
+for (const plugin of Object.keys((config.commands))) {
     program
         .command(plugin)
         .allowUnknownOption(true)
         .helpOption(false)
         .action((_, commandObj) => {
-        // const path = __dirname + "/../../gh-edu-" + plugin + "/gh-edu-"; // TODO '/' depents on the OS use path.join
-        // const { code, stderr } = shell.exec(path + plugin + ` ${commandObj.args}`, { silent: false });
-        const { code, stderr } = shell.exec(`gh extension exec edu-${plugin} ${commandObj.args}`, { silent: false });
+        const { code } = shell.exec(`gh extension exec edu-${plugin} ${commandObj.args}`, { silent: false });
         if (code != 0) {
             if (code == 127) // doesn't found the binary
                 console.error(`${plugin} is not installed\nPlease use gh edu remove command to remove plugins, or install it again`);
