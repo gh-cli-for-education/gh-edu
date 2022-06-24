@@ -9,14 +9,6 @@ import reset from './builtin/reset/reset.js';
 import shell from "shelljs";
 import { config } from './config.js'
 
-/** _dirname doesnt work with modules */
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-/***/
-
 if (!shell.which('git')) {
   console.error("Sorry, this extension requires git installed!");
   process.exit(1);
@@ -53,6 +45,7 @@ program
   .option("-o, --org", "Set organization")
   .option("-i, --identifier", "Regex for the member identifier. Ex: alu[0-9]{10} for alu0101204512")
   .option("-a, --assignment", "Regex for the current assignment. Ex: turingMachine-* for turingMachine-alu0101204512")
+  .option("-t, --team", "Regex to get information from team name. Ex: \"(?<name>.*?)\.(?<id>.*?)\.(?<login>.*[^\s*])\"")
   .option("-q --quit", "Don't show any log or warning information. The result will be printed anyway")
   .description("Set some values in the configuration file")
   .action((value, config) => {

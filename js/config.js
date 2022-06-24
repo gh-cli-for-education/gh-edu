@@ -9,7 +9,8 @@ import path from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 /***/
-const configPath = __dirname + "/../config.json";
+// const configPath = __dirname + "/../config.json"
+const configPath = path.join(__dirname, "..", "config.json");
 function fetchConfigFile() {
     const result = tryExecuteQuery(queries.identityRepo(remoteConfigName));
     if (!result) {
@@ -62,12 +63,14 @@ function validateConfig(config) {
         if (config.commands[command].lastCommit === undefined)
             throw "All commands must have a lastCommit field";
     }
-    if (!config.assignment === undefined)
-        throw "No assignment field";
+    if (!config.assignmentR === undefined)
+        throw "No assignmentR field";
+    if (!config.teamR === undefined)
+        throw "No teamR field";
     if (!config.identifierR === undefined)
         throw "No indentifierR field";
 }
 export const updateJSON = (content) => {
     fs.writeFileSync(configPath, JSON.stringify(content, null, 2));
 };
-setConfig(); // main is run since the very moment this module is imported
+setConfig(); // setConfig is run since the very moment this module is imported

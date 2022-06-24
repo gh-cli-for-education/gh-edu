@@ -7,7 +7,8 @@ export default function reset(options) {
         },
         commands: {},
         identifierR: "",
-        assignment: ""
+        assignmentR: "",
+        teamR: "",
     };
     if (!options.force && config.commands) {
         newConfig.commands = config.commands;

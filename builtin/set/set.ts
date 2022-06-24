@@ -19,12 +19,13 @@ interface optionObject {
   org: boolean
   identifier: boolean
   assignment: boolean
+  team: boolean
   quiet: boolean
 }
 
 export default function main(value: string | undefined, options: optionObject) {
   if (options.org) {
-    const newConfig = selectOrg(value);
+    const newConfig = selectOrg(value); // TODO fix error
     if (!newConfig) return;
     updateJSON(newConfig);
     if (!options.quiet) console.log("Default org set to: ", newConfig.defaultOrg);
@@ -35,11 +36,17 @@ export default function main(value: string | undefined, options: optionObject) {
     updateJSON(cnf);
     if (!options.quiet) console.log("New identifier regex set to: ", cnf.identifierR);
   }
+  if (options.team) {
+    if (value === undefined) value = "";
+    cnf.teamR = value;
+    updateJSON(cnf);
+    if (!options.quiet) console.log("Current teamR set to: ", cnf.teamR);
+  }
   if (options.assignment) {
     if (value === undefined) value = "";
-    cnf.assignment = value;
+    cnf.assignmentR = value;
     updateJSON(cnf);
-    if (!options.quiet) console.log("Current assignment set to: ", cnf.assignment);
+    if (!options.quiet) console.log("Current assignment set to: ", cnf.assignmentR);
   }
 }
 

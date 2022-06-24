@@ -16,7 +16,7 @@ function selectOrg(newDefaultOrg, config = cnf) {
 }
 export default function main(value, options) {
     if (options.org) {
-        const newConfig = selectOrg(value);
+        const newConfig = selectOrg(value); // TODO fix error
         if (!newConfig)
             return;
         updateJSON(newConfig);
@@ -31,12 +31,20 @@ export default function main(value, options) {
         if (!options.quiet)
             console.log("New identifier regex set to: ", cnf.identifierR);
     }
+    if (options.team) {
+        if (value === undefined)
+            value = "";
+        cnf.teamR = value;
+        updateJSON(cnf);
+        if (!options.quiet)
+            console.log("Current teamR set to: ", cnf.teamR);
+    }
     if (options.assignment) {
         if (value === undefined)
             value = "";
-        cnf.assignment = value;
+        cnf.assignmentR = value;
         updateJSON(cnf);
         if (!options.quiet)
-            console.log("Current assignment set to: ", cnf.assignment);
+            console.log("Current assignment set to: ", cnf.assignmentR);
     }
 }
