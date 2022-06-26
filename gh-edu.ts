@@ -1,4 +1,4 @@
-import { program } from "commander"
+import { Command, program } from "commander"
 import clone from './builtin/clone/clone.js'
 import set from './builtin/set/set.js'
 import get from './builtin/get/get.js'
@@ -53,7 +53,7 @@ program
   })
 program
   .command("get")
-  .description("Show the current default organization")
+  .description("Show information from the configuration file")
   .option("-m, --members", "List community members")
   .option("-p, --plugins", "List the installed plugins")
   .option("-o, --organization", "Return the current organization")
@@ -64,7 +64,7 @@ program
 program
   .command("install")
   .argument("<plug-in>", "Name of the plug-in you want to install")
-  .description("Install plug-in") // TODO Improve help
+  .description("Install a plug-in")
   .action((plugin) => {
     install(plugin);
   })
@@ -81,6 +81,7 @@ program
 program
   .command("remove")
   .argument("<plug-in...>", "Name[s] of the plugin you want to remove")
+  .description("Remove plugin[s]")
   .action((plugin) => {
     remove(plugin);
   })
@@ -108,4 +109,5 @@ for (const plugin of Object.keys((config.commands))) {
     })
 }
 
+program.configureHelp({ commandUsage: (_: Command) => "gh edu [options] [command]" })
 program.parse();

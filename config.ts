@@ -11,7 +11,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 /***/
 
-// const configPath = __dirname + "/../config.json"
 const configPath = path.join(__dirname, "..", "config.json");
 
 export interface configType {
@@ -50,7 +49,6 @@ function fetchConfigFile(): boolean {
 
 export let config: configType;
 
-// call this funcion everytime you are going to call a command
 function setConfig() {
   if (!fs.existsSync(configPath)) {
     console.log("No configuration file detected");
@@ -64,6 +62,7 @@ function setConfig() {
     validateConfig(config);
   } catch (e) {
     console.error(e);
+    // console.error("ejecute el comando gh command restore")
     process.exit(1);
   }
 }
