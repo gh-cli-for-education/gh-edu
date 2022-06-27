@@ -37,24 +37,24 @@ function setConfig() {
         validateConfig(config);
     }
     catch (e) {
-        console.error(e);
+        console.error("Error with the configuration file:\n", e);
         // console.error("ejecute el comando gh command restore")
         process.exit(1);
     }
 }
 function validateConfig(config) {
-    if (!config.defaultOrg === undefined)
+    if (config.defaultOrg === undefined)
         throw "No defaultOrg field";
-    if (!config.cache === undefined)
+    if (config.cache === undefined)
         throw "No cache field";
-    if (!config.cache.orgs === undefined)
+    if (config.cache.orgs === undefined)
         throw "No orgs field in cache";
     for (const org in config.cache.orgs) {
         if (!Array.isArray(config.cache.orgs[org].members)) {
             throw "cache.orgs.<orgsName> must exists and be an array";
         }
     }
-    if (!config.commands === undefined)
+    if (config.commands === undefined)
         throw "No commands field";
     for (const command in config.commands) {
         if (config.commands[command].originalName === undefined)
@@ -62,12 +62,13 @@ function validateConfig(config) {
         if (config.commands[command].lastCommit === undefined)
             throw "All commands must have a lastCommit field";
     }
-    if (!config.assignmentR === undefined)
+    if (config.assignmentR === undefined)
         throw "No assignmentR field";
-    if (!config.teamR === undefined)
+    if (config.teamR === undefined)
         throw "No teamR field";
-    if (!config.identifierR === undefined)
+    if (config.identifierR === undefined)
         throw "No indentifierR field";
+    console.log(config.teamR);
 }
 export const updateJSON = (content) => {
     fs.writeFileSync(configPath, JSON.stringify(content, null, 2));
