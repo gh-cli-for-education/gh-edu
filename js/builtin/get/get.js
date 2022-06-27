@@ -1,13 +1,15 @@
 import { config } from '../../config.js';
 import * as utils from '../../utils/utils.js';
 import fs from 'fs';
+import path from 'path';
 /** _dirname doesnt work with modules */
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 /***/
-const builtinFilesPromise = fs.promises.readdir(__dirname + "/../");
+// const builtinFilesPromise = fs.promises.readdir(__dirname + "/../");
+const builtinFilesPromise = fs.promises.readdir(path.join(__dirname, ".."));
 export default async function main(options) {
     if (Object.keys(options).length > 1) {
         console.error("Get command only work with one option at a time");
@@ -42,5 +44,8 @@ export default async function main(options) {
     }
     else if (options.configuration) {
         console.log(config);
+    }
+    else {
+        console.log("No option. Doing nothing");
     }
 }

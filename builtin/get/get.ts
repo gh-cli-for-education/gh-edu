@@ -1,6 +1,7 @@
 import { config } from '../../config.js'
 import * as utils from '../../utils/utils.js'
 import fs from 'fs';
+import path from 'path';
 
 /** _dirname doesnt work with modules */
 import { fileURLToPath } from 'url';
@@ -10,7 +11,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 /***/
 
-const builtinFilesPromise = fs.promises.readdir(__dirname + "/../");
+// const builtinFilesPromise = fs.promises.readdir(__dirname + "/../");
+const builtinFilesPromise = fs.promises.readdir(path.join(__dirname, ".."));
 
 interface optionsType {
   members: Boolean,
@@ -46,8 +48,10 @@ export default async function main(options: optionsType) {
       console.log(JSON.stringify(config.commands, null, 2));
     }
   } else if (options.organization) {
-    console.log(config.defaultOrg ? config.defaultOrg : "The organization is not set")
+    console.log(config.defaultOrg ? config.defaultOrg : "The organization is not set");
   } else if (options.configuration) {
     console.log(config)
+  } else {
+    console.log("No option. Doing nothing");
   }
 }

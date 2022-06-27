@@ -52,14 +52,14 @@ export const executeQuery = (query: string, ...options: string[]) => {
 /*
 * tryExecuteQuery is like executeQuery but it also returns true if it was successful or false otherwise
 * */
-export const tryExecuteQuery = (query: string, debug = false, ...options: string[]): [any, boolean] => {
+export const tryExecuteQuery = (query: string, debug = false, ...options: string[]): [string, boolean] => {
   try {
     const result = executeQuery(query, ...options)
     if (debug) console.log(result)
     return [result, true]
   } catch(e) {
     if (debug) console.error(e)
-    return [{}, false]
+    return ["", false]
   }
 }
 

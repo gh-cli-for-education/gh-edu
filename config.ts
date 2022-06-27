@@ -1,17 +1,19 @@
 import fs from 'fs'
-import tmp from 'tmp'
+import pkg from 'shelljs'
+const { mkdir } = pkg
 import { runCommand, tryExecuteQuery } from './utils/utils.js';
 import * as queries from './utils/constants/queries.js'
-import { remoteConfigName } from './utils/constants/constants.js'
+import { configName, remoteConfigName } from './utils/constants/constants.js'
 
 /** _dirname doesnt work with modules */
 import { fileURLToPath } from 'url';
-import path, { parse } from 'path';
+import path from 'path';
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Root path
+const jsRoot = path.dirname(__filename);
+const tsRoot = path.join(jsRoot, "..");
 /***/
-
-const configPath = path.join(__dirname, "..", "config.json");
+const configPath = path.join(tsRoot, "data", configName);
 
 export interface configType {
   defaultOrg: string,
@@ -35,34 +37,33 @@ export interface configType {
 
 function fetchConfigFile(): boolean {
   const result = tryExecuteQuery(queries.identityRepo(remoteConfigName));
-  if (!result) {
+  if (!result[1]) {
     console.log("No configuration file detected in remote");
     return false;
   }
   console.log("Remote config file detected")
-  const tmpFile = tmp.dirSync();
-  runCommand(`gh repo clone ${remoteConfigName} ${tmpFile.name}`, true);
-  runCommand(`mv ${tmpFile.name}/config.json ${configPath}`, true);
+  runCommand(`gh repo clone ${remoteConfigName} ${tsRoot}/data`, true);
   console.log("Configuration file dowloaded")
   return true;
 }
 
 export let config: configType;
 
-function setConfig() {
+function setConfig() { // main
   if (!fs.existsSync(configPath)) {
     console.log("No configuration file detected");
     if (!fetchConfigFile()) {
       console.log("Creating new configuration file...");
-      fs.copyFileSync(__dirname + "/../utils/config.template.json", configPath, fs.constants.COPYFILE_EXCL);
+      mkdir('-p', `${tsRoot}/data`);
+      runCommand("git init data")
+      fs.copyFileSync(path.join(tsRoot, "utils", "data.template.json"), configPath, fs.constants.COPYFILE_EXCL);
     }
-  }
+  } // Now there is a config/data.json
   try { // Check the JSON configuration is valid
     config = JSON.parse(fs.readFileSync(configPath, { encoding: "utf8" }));
     validateConfig(config);
   } catch (e) {
     console.error("Error with the configuration file:\n", e);
-    // console.error("ejecute el comando gh command restore")
     process.exit(1);
   }
 }
@@ -84,7 +85,6 @@ function validateConfig(config: configType) {
   if (config.assignmentR === undefined) throw "No assignmentR field"
   if (config.teamR === undefined) throw "No teamR field"
   if (config.identifierR === undefined) throw "No indentifierR field"
-  console.log(config.teamR)
 }
 
 export const updateJSON = (content: configType) => {
@@ -92,3 +92,4 @@ export const updateJSON = (content: configType) => {
 }
 
 setConfig() // setConfig is run since the very moment this module is imported
+

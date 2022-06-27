@@ -1,2 +1,2 @@
 export const remoteConfigName = "gh-edu-profile";
-export const configName = "config.json";
+export const configName = "data.json";

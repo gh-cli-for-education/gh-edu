@@ -56,7 +56,7 @@ export const tryExecuteQuery = (query, debug = false, ...options) => {
     catch (e) {
         if (debug)
             console.error(e);
-        return [{}, false];
+        return ["", false];
     }
 };
 export const names2url = (repoNames) => {
