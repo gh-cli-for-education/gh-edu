@@ -15,9 +15,8 @@ export default function reset(options: optionsType) {
     assignmentR: "",
     teamR: "",
   };
-  if (!options.force && config.commands) {
+  if (!options.force) {
     newConfig.commands = config.commands
   }
   updateJSON(newConfig);
-  console.log("Done!!!");
 }

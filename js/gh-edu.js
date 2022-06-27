@@ -69,10 +69,9 @@ program
 program
     .command("update")
     .option("-c, --cache", "Update your cache")
-    .option("-p, --plugin", "Update plugins")
-    .option("-f, --fetch", "Update configuration file in remote")
+    .option("-p, --plugin [plugin]", "Update plugins")
     .option("-r, --remote", "Update local configuration file")
-    .description("Update your configuration")
+    .description("Update your data file")
     .action((options) => {
     update(options);
 });

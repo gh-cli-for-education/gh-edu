@@ -1,7 +1,6 @@
 // TODO This file needs to be heavily tested
 import { config, updateJSON } from '../../config.js';
 import shell from "shelljs";
-import inquirer from 'inquirer';
 import fs from 'fs';
 import * as utils from '../../utils/utils.js';
 /** _dirname doesnt work with modules */
@@ -34,21 +33,23 @@ export default async function main(plugin) {
     let installedName = plugin.replace(/.*\//, "").replace("gh-", "").replace("edu-", "");
     const builtinFiles = await builtinFilesPromise; // I don't check if it is a file or a directory
     while (installedName in config.commands || builtinFiles.includes(installedName)) {
-        console.log(`There is already a plugin with that name (${installedName})`);
-        await inquirer.prompt([
-            {
-                type: 'input',
-                name: 'alias',
-                message: "Write an alias"
-            }
-        ]).then((answers) => {
-            installedName = answers.alias;
-        });
+        // console.log(`There is already a plugin with that name (${installedName})`);
+        // await inquirer.prompt([
+        //   {
+        //     type: 'input',
+        //     name: 'alias',
+        //     message: "Write an alias"
+        //   }
+        // ]).then((answers) => {
+        //   installedName = answers.alias;
+        // })
+        console.error(chalk.red("there is already a with that name: ", installedName));
+        process.exit(1);
     }
     console.log(`Installing ${plugin} ...`);
     let { stderr, code } = shell.exec("gh extension install " + url, { silent: true });
     if (code !== 0) {
-        process.stderr.write(stderr.replaceAll(`edu-${installedName}`, installedName));
+        process.stderr.write(stderr.replaceAll("edu-", ""));
         return;
     }
     console.log("Plugin installed in system");

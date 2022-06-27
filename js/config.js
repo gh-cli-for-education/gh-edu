@@ -31,7 +31,7 @@ function setConfig() {
         if (!fetchConfigFile()) {
             console.log("Creating new configuration file...");
             mkdir('-p', `${tsRoot}/data`);
-            runCommand("git init data");
+            runCommand("git init data", true);
             fs.copyFileSync(path.join(tsRoot, "utils", "data.template.json"), configPath, fs.constants.COPYFILE_EXCL);
         }
     } // Now there is a config/data.json

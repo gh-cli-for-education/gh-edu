@@ -14,7 +14,7 @@ export async function update(options) {
         // console.log("Update successful");
         return;
     }
-    console.log("Update: No option selected");
+    console.log("update: no update has been made");
 }
 export async function updateLocalConfig(config, options) {
     if (options.cache) {
@@ -29,35 +29,40 @@ export async function updateLocalConfig(config, options) {
         }
     }
     if (options.plugin) {
-        console.log("Updating plugins");
-        for (const command in config.commands) {
-            let name = config.commands[command].originalName.split('/')[1];
-            let result = shell.exec("gh extension upgrade " + name, { silent: true }); // TODO Also install plugins from config
-            if (result.stdout === "" && result.stderr === "") { // TODO test if this work when a plugin is upgraded
-                console.log(command, "already up to date");
-            }
-            else if (result.code !== 0) {
-                process.stderr.write(result.stderr);
-            }
-            else {
-                const lastCommit = result.stdout.match(/[0-9a-f]{5,40}$/);
-                if (lastCommit) {
-                    config.commands[command].lastCommit = lastCommit[0];
-                }
-                else {
-                    console.error(chalk.red("commit hash couldn't be determinated"));
-                    config.commands[command].lastCommit = "";
-                }
+        if (typeof options.plugin == "string") {
+            updatePlugin(config, options.plugin);
+        }
+        else {
+            for (const command in config.commands) {
+                updatePlugin(config, command);
             }
         }
     }
     if (options.remote) {
         await updateRemoteConfig();
     }
-    if (options.fetch) {
-        console.log("options fetch");
-    }
     return config;
+}
+function updatePlugin(config, command) {
+    // let name = config.commands[command].originalName.split('/')[1];
+    let result = shell.exec("gh extension upgrade edu-" + command, { silent: true });
+    if (result.stdout === "" && result.stderr === "") {
+        console.log(command, "already up to date");
+        return;
+    }
+    if (result.code !== 0) {
+        process.stderr.write(chalk.red(result.stderr.replaceAll("edu-", "")));
+        return;
+    }
+    const origin = config.commands[command].originalName;
+    let lastCommit = shell.exec(`gh api /repos/${origin}/commits/main`, { silent: true });
+    if (lastCommit.code !== 0) {
+        lastCommit = shell.exec(`gh api /repos/${origin}/commits/master`, { silent: true });
+        if (lastCommit.code !== 0) {
+            console.log(chalk.yellow("No main or master branch. Last commit info couldn't be retrieved"));
+        }
+    }
+    config.commands[command].lastCommit = JSON.parse(lastCommit).sha?.substring(0, 8);
 }
 async function updateRemoteConfig() {
     const getRemoteRepo = () => {
