@@ -57,7 +57,7 @@ export const tryExecuteQuery = (query: string, debug = false, ...options: string
     const result = executeQuery(query, ...options)
     if (debug) console.log(result)
     return [result, true]
-  } catch(e) {
+  } catch (e) {
     if (debug) console.error(e)
     return ["", false]
   }
@@ -81,6 +81,14 @@ export const prefixOrg = (reposNames: string[], org: string) => {
 //   return allOrgs.find(orgName => orgName === name);
 // }
 
+export const isObjEmpty = (obj: any): boolean => {
+  // https://stackoverflow.com/a/32108184/13059089
+  // because Object.keys(new Date()).length === 0;
+  // we have to do some additional check
+  return obj // 👈 null and undefined check
+    && Object.keys(obj).length === 0
+    && Object.getPrototypeOf(obj) === Object.prototype
+}
 export const fetchOrgs = () => {
   return runCommand(chooseOrgName).trim();
 }

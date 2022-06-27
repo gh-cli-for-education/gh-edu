@@ -8,6 +8,10 @@ import chalk from 'chalk';
 import inquirer from 'inquirer';
 import tmp from 'tmp';
 export async function update(options) {
+    if (utils.isObjEmpty(options)) {
+        utils.runCommand("gh extension upgrade gh-edu");
+        return;
+    }
     const newConfig = await updateLocalConfig(config, options);
     if (newConfig) {
         updateJSON(newConfig);
@@ -55,7 +59,7 @@ function updatePlugin(config, command) {
         return;
     }
     const origin = config.commands[command].originalName;
-    let lastCommit = shell.exec(`gh api /repos/${origin}/commits/main`, { silent: true });
+    let lastCommit = shell.exec(`gh api /repos/${origin}/commits/main`, { silent: true }); // TODO I need to make sure which one I have updated
     if (lastCommit.code !== 0) {
         lastCommit = shell.exec(`gh api /repos/${origin}/commits/master`, { silent: true });
         if (lastCommit.code !== 0) {

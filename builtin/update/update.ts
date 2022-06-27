@@ -15,6 +15,10 @@ interface optionType {
 }
 
 export async function update(options: optionType) {
+  if (utils.isObjEmpty(options)) {
+    utils.runCommand("gh extension upgrade gh-edu");
+    return;
+  }
   const newConfig = await updateLocalConfig(config, options);
   if (newConfig) {
     updateJSON(newConfig);
@@ -63,7 +67,7 @@ function updatePlugin(config: configType, command: string) {
     return
   }
   const origin = config.commands[command].originalName;
-  let lastCommit = shell.exec(`gh api /repos/${origin}/commits/main`, { silent: true });
+  let lastCommit = shell.exec(`gh api /repos/${origin}/commits/main`, { silent: true }); // TODO I need to make sure which one I have updated
   if (lastCommit.code !== 0) {
     lastCommit = shell.exec(`gh api /repos/${origin}/commits/master`, { silent: true });
     if (lastCommit.code !== 0) {
@@ -123,3 +127,4 @@ export function updateOneOrg(org: string, config: configType) {
   };
   return config;
 }
+
