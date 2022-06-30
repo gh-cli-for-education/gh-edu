@@ -52,7 +52,6 @@ function updatePlugin(config, command) {
     let result = shell.exec("gh extension upgrade edu-" + command, { silent: true });
     if (result.stdout === "" && result.stderr === "") {
         console.log(command, "already up to date");
-        return;
     }
     if (result.code !== 0) {
         process.stderr.write(chalk.red(result.stderr.replaceAll("edu-", "")));

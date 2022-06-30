@@ -46,7 +46,7 @@ program
   .option("-i, --identifier", "Regex for the member identifier. Ex: alu[0-9]{10} for alu0101204512")
   .option("-a, --assignment", "Regex for the current assignment. Ex: turingMachine-* for turingMachine-alu0101204512")
   .option("-t, --team", "Regex to get information from team name. Ex: \"(?<name>.*?)\.(?<id>.*?)\.(?<login>.*[^\s*])\"")
-  .option("-q --quit", "Don't show any log or warning information. The result will be printed anyway")
+  .option("-q --quiet", "Don't show any log or warning information. The result will be printed anyway")
   .description("Set some values in the configuration file")
   .action((value, config) => {
     set(value, config);
@@ -56,8 +56,11 @@ program
   .description("Show information from the configuration file")
   .option("-m, --members", "List community members")
   .option("-p, --plugins", "List the installed plugins")
-  .option("-o, --organization", "Return the current organization")
-  .option("-c, --configuration", "Return the loaded configuration")
+  .option("-o, --org", "Show the current organization")
+  .option("-i, --identifier", "Show the set regex for the identifier")
+  .option("-a, --assignment", "Show the set regex for the assignment")
+  .option("-t, --team", "Show the set team for the assignment")
+  .option("-c, --configuration", "Show the loaded configuration")
   .action((options) => {
     get(options);
   })

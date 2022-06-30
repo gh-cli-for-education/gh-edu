@@ -19,6 +19,9 @@ interface optionsType {
   plugins: Boolean,
   organization: Boolean,
   configuration: Boolean,
+  identifier: Boolean,
+  assignment: Boolean,
+  team: Boolean,
 }
 
 export default async function main(options: optionsType) {
@@ -51,6 +54,12 @@ export default async function main(options: optionsType) {
     console.log(config.defaultOrg ? config.defaultOrg : "The organization is not set");
   } else if (options.configuration) {
     console.log(config)
+  } else if (options.identifier) {
+    console.log(config.defaultOrg ? config.defaultOrg : "The identifier regex is not set");
+  } else if (options.assignment) {
+    console.log(config.defaultOrg ? config.defaultOrg : "The assignment regex is not set");
+  } else if (options.team) {
+    console.log(config.defaultOrg ? config.defaultOrg : "The team regex is not set");
   } else {
     console.log("No option. Doing nothing");
   }
