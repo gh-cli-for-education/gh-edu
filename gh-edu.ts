@@ -103,7 +103,7 @@ for (const plugin of Object.keys((config.commands))) {
     .allowUnknownOption(true)
     .helpOption(false)
     .action((_, commandObj) => {
-      const { code } = shell.exec(`gh extension exec edu-${plugin} ${commandObj.args}`, { silent: false });
+      const { code } = shell.exec(`gh extension exec edu-${plugin} ${commandObj.args.join(' ')}`, { silent: false });
       if (code != 0) {
         if (code == 127) // doesn't found the binary
           console.error(`${plugin} is not installed\nPlease use gh edu remove command to remove plugins, or install it again`);
