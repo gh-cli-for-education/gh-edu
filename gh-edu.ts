@@ -74,10 +74,10 @@ program
 program
   .command("update")
   .option("-c, --cache", "Update your cache")
-  .option("-p, --plugin [plugin]", "Update plugins")
+  .option("-p, --plugin [plugin...]", "Update plugins")
   .option("-r, --remote", "Update local configuration file")
   .description("Update your data file")
-  .action((options) => {
+  .action(options => {
     update(options);
   })
 program

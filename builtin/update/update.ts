@@ -43,6 +43,11 @@ export async function updateLocalConfig(config: configType, options: optionType)
   if (options.plugin) {
     if (typeof options.plugin == "string") {
       updatePlugin(config, options.plugin)
+    } else if (Array.isArray(options.plugin)) {
+      options.plugin
+      for (const plugin of (options.plugin as string[])) {
+        updatePlugin(config, plugin)
+      }
     } else {
       for (const command in config.commands) {
         updatePlugin(config, command)
@@ -58,9 +63,11 @@ export async function updateLocalConfig(config: configType, options: optionType)
 function updatePlugin(config: configType, command: string) {
   // let name = config.commands[command].originalName.split('/')[1];
   let result = shell.exec("gh extension upgrade edu-" + command, { silent: true });
-  if (result.stdout === "" && result.stderr === "") {
-    console.log(command, "already up to date");
-  }
+  // console.log("stdout", result.stdout);
+  // console.log("stderr", result.stderr);
+  // if (result.stdout === "" && result.stderr === "") {
+  //   console.log(command, "already up to date");
+  // }
   if (result.code !== 0) {
     process.stderr.write(chalk.red(result.stderr.replaceAll("edu-", "")));
     return
