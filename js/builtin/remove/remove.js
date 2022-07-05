@@ -18,3 +18,4 @@ export default function main(plugins) {
     }
     updateJSON(config);
 }
+//# sourceMappingURL=remove.js.map

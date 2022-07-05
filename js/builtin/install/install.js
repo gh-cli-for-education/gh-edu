@@ -68,3 +68,4 @@ export default async function main(plugin) {
     updateJSON(config);
     console.log(`${plugin} installed as ${installedName}`);
 }
+//# sourceMappingURL=install.js.map

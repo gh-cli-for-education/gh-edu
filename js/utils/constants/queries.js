@@ -30,3 +30,4 @@ query {
 }
 `;
 export const identityRepoFilter = "--jq '.data.viewer.repository.sshUrl'";
+//# sourceMappingURL=queries.js.map

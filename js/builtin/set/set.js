@@ -44,3 +44,4 @@ export default function main(value, options) {
         // if (!options.quiet) console.log("Current assignment set to: ", cnf.assignmentR);
     }
 }
+//# sourceMappingURL=set.js.map

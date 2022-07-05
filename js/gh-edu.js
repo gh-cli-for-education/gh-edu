@@ -109,3 +109,4 @@ for (const plugin of Object.keys((config.commands))) {
 }
 program.configureHelp({ commandUsage: (_) => "gh edu [options] [command]" });
 program.parse();
+//# sourceMappingURL=gh-edu.js.map

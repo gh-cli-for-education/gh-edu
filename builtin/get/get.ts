@@ -17,7 +17,7 @@ const builtinFilesPromise = fs.promises.readdir(path.join(__dirname, ".."));
 interface optionsType {
   members: Boolean,
   plugins: Boolean,
-  organization: Boolean,
+  org: Boolean,
   configuration: Boolean,
   identifier: Boolean,
   assignment: Boolean,
@@ -50,7 +50,7 @@ export default async function main(options: optionsType) {
       console.log("External commands:");
       console.log(JSON.stringify(config.commands, null, 2));
     }
-  } else if (options.organization) {
+  } else if (options.org) {
     console.log(config.defaultOrg ? config.defaultOrg : "The organization is not set");
   } else if (options.configuration) {
     console.log(config)

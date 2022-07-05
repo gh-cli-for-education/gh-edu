@@ -86,3 +86,4 @@ export const fetchOrgs = () => {
     return runCommand(chooseOrgName).trim();
 };
 export const isFirstParty = (plugin) => !(/.*\/.*/.test(plugin));
+//# sourceMappingURL=utils.js.map

@@ -15,3 +15,4 @@ export default function reset(options) {
     }
     updateJSON(newConfig);
 }
+//# sourceMappingURL=reset.js.map

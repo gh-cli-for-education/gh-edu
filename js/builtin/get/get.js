@@ -39,7 +39,7 @@ export default async function main(options) {
             console.log(JSON.stringify(config.commands, null, 2));
         }
     }
-    else if (options.organization) {
+    else if (options.org) {
         console.log(config.defaultOrg ? config.defaultOrg : "The organization is not set");
     }
     else if (options.configuration) {
@@ -58,3 +58,4 @@ export default async function main(options) {
         console.log("No option. Doing nothing");
     }
 }
+//# sourceMappingURL=get.js.map

@@ -75,3 +75,4 @@ export const updateJSON = (content) => {
     fs.writeFileSync(configPath, JSON.stringify(content, null, 2));
 };
 setConfig(); // setConfig is run since the very moment this module is imported
+//# sourceMappingURL=config.js.map
