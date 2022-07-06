@@ -54,6 +54,9 @@ export default async function main(options) {
     else if (options.team) {
         console.log(config.teamR ? config.teamR : "The team regex is not set");
     }
+    else if (options.version) {
+        console.log(config.version ? config.version : "The version is not set!!!. This is a fatal error");
+    }
     else {
         console.log("No option. Doing nothing");
     }
