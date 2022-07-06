@@ -55,11 +55,11 @@ export default async function main(options: optionsType) {
   } else if (options.configuration) {
     console.log(config)
   } else if (options.identifier) {
-    console.log(config.defaultOrg ? config.defaultOrg : "The identifier regex is not set");
+    console.log(config.identifierR ? config.identifierR : "The identifier regex is not set");
   } else if (options.assignment) {
-    console.log(config.defaultOrg ? config.defaultOrg : "The assignment regex is not set");
+    console.log(config.assignmentR ? config.assignmentR : "The assignment regex is not set");
   } else if (options.team) {
-    console.log(config.defaultOrg ? config.defaultOrg : "The team regex is not set");
+    console.log(config.teamR ? config.teamR : "The team regex is not set");
   } else {
     console.log("No option. Doing nothing");
   }

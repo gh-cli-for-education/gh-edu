@@ -1,19 +1,13 @@
 import fs from 'fs'
 import pkg from 'shelljs'
+import chalk from 'chalk'
+import path from 'path';
 const { mkdir } = pkg
-import { runCommand, tryExecuteQuery } from './utils/utils.js';
+import { runCommand, tryExecuteQuery, tsRoot } from './utils/utils.js';
 import * as queries from './utils/constants/queries.js'
 import { configName, remoteConfigName } from './utils/constants/constants.js'
 import { homedir } from 'os'
 
-/** _dirname doesnt work with modules */
-import { fileURLToPath } from 'url';
-import path from 'path';
-const __filename = fileURLToPath(import.meta.url);
-// Root path
-const jsRoot = path.dirname(__filename);
-const tsRoot = path.join(jsRoot, "..");
-/***/
 // const configPath = path.join(tsRoot, "data", configName);
 const configDir = path.join(homedir(), ".config", "gh-edu");
 const configPath = path.join(configDir, configName);
@@ -36,6 +30,7 @@ export interface configType {
   identifierR: string,
   assignmentR: string,
   teamR: string,
+  version: string,
 }
 
 function fetchConfigFile(): boolean {
@@ -89,6 +84,11 @@ function validateConfig(config: configType) {
   if (config.assignmentR === undefined) throw "No assignmentR field"
   if (config.teamR === undefined) throw "No teamR field"
   if (config.identifierR === undefined) throw "No indentifierR field"
+  if (!config.version) {
+    config.version = JSON.parse(fs.readFileSync(path.join("utils", "data.template.json"), {encoding: "utf-8"})).version;
+    console.log(chalk.yellow(`No version in this data file\nSetting version found in template: v${config.version}`));
+    updateJSON(config);
+  }
 }
 
 export const updateJSON = (content: configType) => {

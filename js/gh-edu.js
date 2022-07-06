@@ -59,6 +59,7 @@ program
     .option("-a, --assignment", "Show the set regex for the assignment")
     .option("-t, --team", "Show the set team for the assignment")
     .option("-c, --configuration", "Show the loaded configuration")
+    .option("-v, --version", "Get the current installed version")
     .action((options) => {
     get(options);
 });

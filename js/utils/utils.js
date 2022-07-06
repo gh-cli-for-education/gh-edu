@@ -1,4 +1,5 @@
 import shell from "shelljs";
+import path from 'path';
 import { chooseOrgName } from "./constants/commands.js";
 export const runCommand = (command, silent = false) => {
     const result = shell.exec(command, { silent });
@@ -29,6 +30,13 @@ export const getMembersFromOrg = (org) => {
     members.pop();
     return members;
 };
+// Root path
+/** _dirname doesnt work with modules */
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+/***/
+export const jsRoot = path.join(path.dirname(__filename), "..");
+export const tsRoot = path.join(jsRoot, "..");
 export const executeQuery = (query, ...options) => {
     let command = `gh api graphql --paginate ${options} -f query='${query}'`;
     let queryResult = shell.exec(command, { silent: true });

@@ -14,6 +14,7 @@ export default function reset(options: optionsType) {
     identifierR: "",
     assignmentR: "",
     teamR: "",
+    version: config.version,
   };
   if (!options.force) {
     newConfig.commands = config.commands
