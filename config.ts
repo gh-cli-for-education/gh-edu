@@ -4,6 +4,7 @@ const { mkdir } = pkg
 import { runCommand, tryExecuteQuery } from './utils/utils.js';
 import * as queries from './utils/constants/queries.js'
 import { configName, remoteConfigName } from './utils/constants/constants.js'
+import { homedir } from 'os'
 
 /** _dirname doesnt work with modules */
 import { fileURLToPath } from 'url';
@@ -13,7 +14,9 @@ const __filename = fileURLToPath(import.meta.url);
 const jsRoot = path.dirname(__filename);
 const tsRoot = path.join(jsRoot, "..");
 /***/
-const configPath = path.join(tsRoot, "data", configName);
+// const configPath = path.join(tsRoot, "data", configName);
+const configDir = path.join(homedir(), ".config", "gh-edu");
+const configPath = path.join(configDir, configName);
 
 export interface configType {
   defaultOrg: string,
@@ -50,15 +53,16 @@ function fetchConfigFile(): boolean {
 export let config: configType;
 
 function setConfig() { // main
-  if (!fs.existsSync(configPath)) {
+  if (!fs.existsSync(configDir)) {
     console.log("No configuration file detected");
     if (!fetchConfigFile()) {
       console.log("Creating new configuration file...");
-      mkdir('-p', `${tsRoot}/data`);
-      runCommand("git init data", true);
+      mkdir('-p', `${configDir}`);
+      // mkdir('-p', `${tsRoot}/data`);
+      runCommand(`git init ${configDir}`, true);
       fs.copyFileSync(path.join(tsRoot, "utils", "data.template.json"), configPath, fs.constants.COPYFILE_EXCL);
     }
-  } // Now there is a config/data.json
+  } // Now there is a data.json
   try { // Check the JSON configuration is valid
     config = JSON.parse(fs.readFileSync(configPath, { encoding: "utf8" }));
     validateConfig(config);
