@@ -67,6 +67,10 @@ export async function updateLocalConfig(config: configType, options: optionType)
 
 function updatePlugin(config: configType, command: string) {
   // let name = config.commands[command].originalName.split('/')[1];
+  if (!config.commands[command]) {
+    console.error(chalk.red(`${command} is not installed`));
+    return;
+  }
   let result = shell.exec("gh extension upgrade edu-" + command, { silent: true });
   // console.log("stdout", result.stdout);
   // console.log("stderr", result.stderr);
