@@ -56,7 +56,7 @@ program
   .description("Show information from the configuration file")
   .option("-m, --members", "List community members")
   .option("-p, --plugins", "List the installed plugins")
-  .option("-o, --org", "Show the current organization")
+  .option("-o, --organization", "Show the current organization")
   .option("-i, --identifier", "Show the set regex for the identifier")
   .option("-a, --assignment", "Show the set regex for the assignment")
   .option("-t, --team", "Show the set team for the assignment")
@@ -73,10 +73,10 @@ program
   })
 program
   .command("update")
+  .description("Everything related to updates\nIf no flag is specified it will update the core")
   .option("-c, --cache", "Update your cache")
-  .option("-p, --plugin [plugin...]", "Update plugins")
-  .option("-r, --remote", "Update local configuration file")
-  .description("Update your data file")
+  .option("-p, --plugin <plugin...>", "Update plugins")
+  .option("-r, --remote", "Update remote data file")
   .action(options => {
     update(options);
   })

@@ -1,4 +1,3 @@
-// TODO This file needs to be heavily tested
 import { config, updateJSON } from '../../config.js';
 import shell from "shelljs";
 import fs from 'fs';
