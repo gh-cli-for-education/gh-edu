@@ -67,10 +67,11 @@ program
   })
 program
   .command("install")
+  .option("-q --quiet", "Don't show any log or warning information. The result will be printed anyway")
   .argument("<plug-in>", "Name of the plug-in you want to install")
   .description("Install a plug-in")
-  .action((plugin) => {
-    install(plugin);
+  .action((plugin, quiet) => {
+    install(plugin, quiet);
   })
 program
   .command("update")

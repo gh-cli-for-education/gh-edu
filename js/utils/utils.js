@@ -93,4 +93,18 @@ export const isObjEmpty = (obj) => {
 export const fetchOrgs = () => {
     return runCommand(chooseOrgName).trim();
 };
+export const isValidRegex = (regex) => {
+    try {
+        new RegExp(regex);
+    }
+    catch (_) {
+        return false;
+    }
+    return true;
+};
+export const print = (silent, message) => {
+    if (!silent) {
+        console.log(message);
+    }
+};
 export const isFirstParty = (plugin) => !(/.*\/.*/.test(plugin));

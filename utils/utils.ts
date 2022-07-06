@@ -2,7 +2,7 @@ import shell from "shelljs";
 import path from 'path';
 import { chooseOrgName } from "./constants/commands.js"
 
-export const runCommand = (command: string, silent = false) => {
+export const runCommand = (command: string, silent = false): string => {
   const result = shell.exec(command, { silent });
   if (silent && result.code != 0) {
     console.error("Internal error: runCommand: ", command);
@@ -100,6 +100,21 @@ export const isObjEmpty = (obj: any): boolean => {
 }
 export const fetchOrgs = () => {
   return runCommand(chooseOrgName).trim();
+}
+
+export const isValidRegex = (regex: string): boolean => {
+  try {
+    new RegExp(regex);
+  } catch (_) {
+    return false;
+  }
+  return true;
+}
+
+export const print = (silent: boolean, message: string) => {
+  if (!silent) {
+    console.log(message);
+  }
 }
 
 export const isFirstParty = (plugin: string) => !(/.*\/.*/.test(plugin));

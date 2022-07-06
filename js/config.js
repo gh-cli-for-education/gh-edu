@@ -3,7 +3,7 @@ import pkg from 'shelljs';
 import chalk from 'chalk';
 import path from 'path';
 const { mkdir } = pkg;
-import { runCommand, tryExecuteQuery, tsRoot } from './utils/utils.js';
+import { runCommand, tryExecuteQuery, tsRoot, isValidRegex } from './utils/utils.js';
 import * as queries from './utils/constants/queries.js';
 import { configName, remoteConfigName } from './utils/constants/constants.js';
 import { homedir } from 'os';
@@ -64,10 +64,16 @@ function validateConfig(config) {
     }
     if (config.assignmentR === undefined)
         throw "No assignmentR field";
+    if (!isValidRegex(config.assignmentR))
+        throw `assignmentR. ${config.assignmentR} is not a valid regex`;
     if (config.teamR === undefined)
         throw "No teamR field";
+    if (!isValidRegex(config.teamR))
+        throw `teamR. ${config.teamR} is not a valid regex`;
     if (config.identifierR === undefined)
         throw "No indentifierR field";
+    if (!isValidRegex(config.identifierR))
+        throw `identifierR. ${config.identifierR} is not a valid regex`;
     if (!config.version) {
         config.version = JSON.parse(fs.readFileSync(path.join("utils", "data.template.json"), { encoding: "utf-8" })).version;
         console.log(chalk.yellow(`No version in this data file\nSetting version found in template: v${config.version}`));
