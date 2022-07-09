@@ -1,7 +1,8 @@
 import shell from "shelljs";
+import path from 'path';
 import { chooseOrgName } from "./constants/commands.js"
 
-export const runCommand = (command: string, silent = false) => {
+export const runCommand = (command: string, silent = false): string => {
   const result = shell.exec(command, { silent });
   if (silent && result.code != 0) {
     console.error("Internal error: runCommand: ", command);
@@ -33,6 +34,14 @@ export const getMembersFromOrg = (org: string) => {
   members.pop();
   return members
 }
+
+// Root path
+/** _dirname doesnt work with modules */
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+/***/
+export const jsRoot = path.join(path.dirname(__filename), "..");
+export const tsRoot = path.join(jsRoot, "..");
 
 export const executeQuery = (query: string, ...options: string[]) => {
   let command = `gh api graphql --paginate ${options} -f query='${query}'`;
@@ -91,6 +100,21 @@ export const isObjEmpty = (obj: any): boolean => {
 }
 export const fetchOrgs = () => {
   return runCommand(chooseOrgName).trim();
+}
+
+export const isValidRegex = (regex: string): boolean => {
+  try {
+    new RegExp(regex);
+  } catch (_) {
+    return false;
+  }
+  return true;
+}
+
+export const print = (silent: boolean, message: string) => {
+  if (!silent) {
+    console.log(message);
+  }
 }
 
 export const isFirstParty = (plugin: string) => !(/.*\/.*/.test(plugin));

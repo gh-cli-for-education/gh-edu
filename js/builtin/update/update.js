@@ -7,9 +7,14 @@ import shell from "shelljs";
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 import tmp from 'tmp';
+import fs from 'fs';
+import path from 'path';
 export async function update(options) {
     if (utils.isObjEmpty(options)) {
         utils.runCommand("gh extension upgrade gh-edu");
+        const version = JSON.parse(fs.readFileSync(path.join(utils.tsRoot, "utils", "data.template.json"), { encoding: "utf-8" })).version;
+        config.version = version;
+        updateJSON(config);
         return;
     }
     const newConfig = await updateLocalConfig(config, options);
@@ -55,6 +60,10 @@ export async function updateLocalConfig(config, options) {
 }
 function updatePlugin(config, command) {
     // let name = config.commands[command].originalName.split('/')[1];
+    if (!config.commands[command]) {
+        console.error(chalk.red(`${command} is not installed`));
+        return;
+    }
     let result = shell.exec("gh extension upgrade edu-" + command, { silent: true });
     // console.log("stdout", result.stdout);
     // console.log("stderr", result.stderr);

@@ -1,18 +1,15 @@
 import fs from 'fs';
 import pkg from 'shelljs';
+import chalk from 'chalk';
+import path from 'path';
 const { mkdir } = pkg;
-import { runCommand, tryExecuteQuery } from './utils/utils.js';
+import { runCommand, tryExecuteQuery, tsRoot, isValidRegex } from './utils/utils.js';
 import * as queries from './utils/constants/queries.js';
 import { configName, remoteConfigName } from './utils/constants/constants.js';
-/** _dirname doesnt work with modules */
-import { fileURLToPath } from 'url';
-import path from 'path';
-const __filename = fileURLToPath(import.meta.url);
-// Root path
-const jsRoot = path.dirname(__filename);
-const tsRoot = path.join(jsRoot, "..");
-/***/
-const configPath = path.join(tsRoot, "data", configName);
+import { homedir } from 'os';
+// const configPath = path.join(tsRoot, "data", configName);
+const configDir = path.join(homedir(), ".config", "gh-edu");
+const configPath = path.join(configDir, configName);
 function fetchConfigFile() {
     const result = tryExecuteQuery(queries.identityRepo(remoteConfigName));
     if (!result[1]) {
@@ -26,15 +23,16 @@ function fetchConfigFile() {
 }
 export let config;
 function setConfig() {
-    if (!fs.existsSync(configPath)) {
+    if (!fs.existsSync(configDir)) {
         console.log("No configuration file detected");
         if (!fetchConfigFile()) {
             console.log("Creating new configuration file...");
-            mkdir('-p', `${tsRoot}/data`);
-            runCommand("git init data", true);
+            mkdir('-p', `${configDir}`);
+            // mkdir('-p', `${tsRoot}/data`);
+            runCommand(`git init ${configDir}`, true);
             fs.copyFileSync(path.join(tsRoot, "utils", "data.template.json"), configPath, fs.constants.COPYFILE_EXCL);
         }
-    } // Now there is a config/data.json
+    } // Now there is a data.json
     try { // Check the JSON configuration is valid
         config = JSON.parse(fs.readFileSync(configPath, { encoding: "utf8" }));
         validateConfig(config);
@@ -66,10 +64,21 @@ function validateConfig(config) {
     }
     if (config.assignmentR === undefined)
         throw "No assignmentR field";
+    if (!isValidRegex(config.assignmentR))
+        throw `assignmentR. ${config.assignmentR} is not a valid regex`;
     if (config.teamR === undefined)
         throw "No teamR field";
+    if (!isValidRegex(config.teamR))
+        throw `teamR. ${config.teamR} is not a valid regex`;
     if (config.identifierR === undefined)
         throw "No indentifierR field";
+    if (!isValidRegex(config.identifierR))
+        throw `identifierR. ${config.identifierR} is not a valid regex`;
+    if (!config.version) {
+        config.version = JSON.parse(fs.readFileSync(path.join("utils", "data.template.json"), { encoding: "utf-8" })).version;
+        console.log(chalk.yellow(`No version in this data file\nSetting version found in template: v${config.version}`));
+        updateJSON(config);
+    }
 }
 export const updateJSON = (content) => {
     fs.writeFileSync(configPath, JSON.stringify(content, null, 2));

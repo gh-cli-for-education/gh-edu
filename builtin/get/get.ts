@@ -22,6 +22,7 @@ interface optionsType {
   identifier: Boolean,
   assignment: Boolean,
   team: Boolean,
+  version: Boolean,
 }
 
 export default async function main(options: optionsType) {
@@ -55,11 +56,13 @@ export default async function main(options: optionsType) {
   } else if (options.configuration) {
     console.log(config)
   } else if (options.identifier) {
-    console.log(config.defaultOrg ? config.defaultOrg : "The identifier regex is not set");
+    console.log(config.identifierR ? config.identifierR : "The identifier regex is not set");
   } else if (options.assignment) {
-    console.log(config.defaultOrg ? config.defaultOrg : "The assignment regex is not set");
+    console.log(config.assignmentR ? config.assignmentR : "The assignment regex is not set");
   } else if (options.team) {
-    console.log(config.defaultOrg ? config.defaultOrg : "The team regex is not set");
+    console.log(config.teamR ? config.teamR : "The team regex is not set");
+  } else if (options.version) {
+    console.log(config.version ? config.version : "The version is not set!!!. This is a fatal error");
   } else {
     console.log("No option. Doing nothing");
   }

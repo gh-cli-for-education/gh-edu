@@ -1,4 +1,3 @@
-[WIP]
 gh-edu is an ecosystem/plugin to help teachers and students that use GitHub on their assignments.
 The objective is not to replace GitHub classroom but to provide new alternatives and new solutions
 that are better adapted to the context of the terminal.
