@@ -37,7 +37,7 @@ export default async function main(options: optionsType) {
       console.log(config.cache.orgs[config.defaultOrg].members);
     } else {
       console.log("No current organization configured");
-      config.defaultOrg = utils.fetchOrgs();
+      //config.defaultOrg = utils.fetchOrgs();
     }
   } else if (options.plugins) {
     const builtinFiles = await builtinFilesPromise; // I don't check if it is a file or a directory

@@ -1,5 +1,4 @@
 import { config } from '../../config.js';
-import * as utils from '../../utils/utils.js';
 import fs from 'fs';
 import path from 'path';
 /** _dirname doesnt work with modules */
@@ -23,7 +22,7 @@ export default async function main(options) {
         }
         else {
             console.log("No current organization configured");
-            config.defaultOrg = utils.fetchOrgs();
+            //config.defaultOrg = utils.fetchOrgs();
         }
     }
     else if (options.plugins) {
