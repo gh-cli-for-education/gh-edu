@@ -21,7 +21,7 @@ export default async function main(options) {
             console.log(config.cache.orgs[config.defaultOrg].members);
         }
         else {
-            console.log("No current organization configured");
+            console.log("No current organization configured. Run 'gh edu set -o' to set one");
             //config.defaultOrg = utils.fetchOrgs();
         }
     }
@@ -39,7 +39,7 @@ export default async function main(options) {
         }
     }
     else if (options.org) {
-        console.log(config.defaultOrg ? config.defaultOrg : "The organization is not set");
+        console.log(config.defaultOrg ? config.defaultOrg : "No current organization configured. Run 'gh edu set -o' to set one");
     }
     else if (options.configuration) {
         console.log(config);

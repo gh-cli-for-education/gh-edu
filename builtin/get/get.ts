@@ -36,7 +36,7 @@ export default async function main(options: optionsType) {
         throw "Internal Error. Your current organization is not in cache.";
       console.log(config.cache.orgs[config.defaultOrg].members);
     } else {
-      console.log("No current organization configured");
+      console.log("No current organization configured. Run 'gh edu set -o' to set one");
       //config.defaultOrg = utils.fetchOrgs();
     }
   } else if (options.plugins) {
@@ -52,7 +52,7 @@ export default async function main(options: optionsType) {
       console.log(JSON.stringify(config.commands, null, 2));
     }
   } else if (options.org) {
-    console.log(config.defaultOrg ? config.defaultOrg : "The organization is not set");
+    console.log(config.defaultOrg ? config.defaultOrg : "No current organization configured. Run 'gh edu set -o' to set one");
   } else if (options.configuration) {
     console.log(config)
   } else if (options.identifier) {
