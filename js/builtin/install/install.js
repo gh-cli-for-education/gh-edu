@@ -31,12 +31,13 @@ export default async function main(plugin, isQuiet) {
     let installedName = plugin.replace(/.*\//, "").replace("gh-", "").replace("edu-", "");
     const builtinFiles = await builtinFilesPromise; // I don't check if it is a file or a directory
     while (installedName in config.commands || builtinFiles.includes(installedName)) {
-        console.error("There is already  an installed extension with that name: ", installedName);
+        console.error("There is already an installed extension with that name: ", installedName);
         process.exit(1);
     }
     utils.print(isQuiet, `Installing ${plugin} ...`);
+    // Bug: the plugin is installed as a gh-extension but not in the config file
     let { stderr, code } = shell.exec("gh extension install " + url, { silent: true });
-    if (code !== 0) {
+    if (code !== 0 && !stderr.includes("there is already an installed extension that provides")) {
         process.stderr.write(stderr.replaceAll("edu-", ""));
         return;
     }

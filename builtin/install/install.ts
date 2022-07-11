@@ -40,8 +40,9 @@ export default async function main(plugin: string, isQuiet: boolean) {
     process.exit(1);
   } 
   utils.print(isQuiet, `Installing ${plugin} ...`);
+  // Bug: the plugin is installed as a gh-extension but not in the config file
   let { stderr, code } = shell.exec("gh extension install " + url, { silent: true });
-  if (code !== 0) {
+  if (code !== 0 && !stderr.includes("there is already an installed extension that provides")) {
     process.stderr.write(stderr.replaceAll("edu-", ""));
     return;
   }
