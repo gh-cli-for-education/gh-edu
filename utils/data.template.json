@@ -6,6 +6,6 @@
   "commands": {},
   "identifierR": "",
   "assignmentR": "",
-  "teamR": "",
+  "teamR": "(?<name>.+)[-_](?<id>.+)",
   "version": "0.7"
 }

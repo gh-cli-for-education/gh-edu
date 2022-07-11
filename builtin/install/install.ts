@@ -36,9 +36,9 @@ export default async function main(plugin: string, isQuiet: boolean) {
   let installedName = plugin.replace(/.*\//, "").replace("gh-", "").replace("edu-", "");
   const builtinFiles = await builtinFilesPromise; // I don't check if it is a file or a directory
   while (installedName in config.commands || builtinFiles.includes(installedName)) {
-    console.error(chalk.red("there is already a with that name: ", installedName));
+    console.error("There is already an installed extension with that name: ", installedName);
     process.exit(1);
-  }
+  } 
   utils.print(isQuiet, `Installing ${plugin} ...`);
   let { stderr, code } = shell.exec("gh extension install " + url, { silent: true });
   if (code !== 0) {

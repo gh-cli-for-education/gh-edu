@@ -42,7 +42,7 @@ export default async function main(options) {
         console.log(config.defaultOrg ? config.defaultOrg : "No current organization configured. Run 'gh edu set -o' to set one");
     }
     else if (options.configuration) {
-        console.log(config);
+        console.log(JSON.stringify(config, null, 2));
     }
     else if (options.identifier) {
         console.log(config.identifierR ? config.identifierR : "The identifier regex is not set");
