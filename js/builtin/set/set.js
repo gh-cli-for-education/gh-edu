@@ -16,7 +16,7 @@ function selectOrg(newDefaultOrg, config = cnf) {
 }
 export default function main(value, options) {
     if (options.org) {
-        const newConfig = selectOrg(value); // TODO fix error
+        const newConfig = selectOrg(value);
         if (!newConfig)
             return;
         updateJSON(newConfig);

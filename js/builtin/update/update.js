@@ -1,5 +1,5 @@
 import { allOrgNames } from '../../utils/constants/commands.js';
-import { configName, remoteConfigName } from '../../utils/constants/constants.js';
+import { configName, configPath, remoteConfigName } from '../../utils/constants/constants.js';
 import { config, updateJSON } from '../../config.js';
 import * as utils from "../../utils/utils.js";
 import * as queries from "../../utils/constants/queries.js";
@@ -114,7 +114,7 @@ async function updateRemoteConfig() {
     }
     const tmpDir = tmp.dirSync();
     utils.runCommand(`git init ${tmpDir.name}`, true);
-    shell.cp(configName, tmpDir.name);
+    shell.cp(configPath, tmpDir.name);
     utils.runCommand(`git -C ${tmpDir.name} add ${configName}`, true);
     utils.runCommand(`git -C ${tmpDir.name} commit -a -m "Update from gh-edu-system"`, true);
     utils.runCommand(`git -C ${tmpDir.name} push -f ${url}`, true);

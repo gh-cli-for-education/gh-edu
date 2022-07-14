@@ -5,11 +5,7 @@ import path from 'path';
 const { mkdir } = pkg;
 import { runCommand, tryExecuteQuery, tsRoot, isValidRegex } from './utils/utils.js';
 import * as queries from './utils/constants/queries.js';
-import { configName, remoteConfigName } from './utils/constants/constants.js';
-import { homedir } from 'os';
-// const configPath = path.join(tsRoot, "data", configName);
-const configDir = path.join(homedir(), ".config", "gh-edu");
-const configPath = path.join(configDir, configName);
+import { configDir, configPath, remoteConfigName } from './utils/constants/constants.js';
 function fetchConfigFile() {
     const result = tryExecuteQuery(queries.identityRepo(remoteConfigName));
     if (!result[1]) {

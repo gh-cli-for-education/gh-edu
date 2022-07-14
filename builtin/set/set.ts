@@ -3,7 +3,7 @@ import * as utils from "../../utils/utils.js"
 import { updateOneOrg } from "../update/update.js"
 
 function selectOrg(newDefaultOrg?: string, config = cnf) {
-  if (!newDefaultOrg) newDefaultOrg = utils.fetchOrgs() as string;
+  if (!newDefaultOrg) newDefaultOrg = utils.fetchOrgs();
   if (!(newDefaultOrg in config.cache.orgs)) {
     console.log("Not in cache. Fetching... (Cache will be updated)");
     config = updateOneOrg(newDefaultOrg, config);
@@ -25,7 +25,7 @@ interface optionObject {
 
 export default function main(value: string | undefined, options: optionObject) {
   if (options.org) {
-    const newConfig = selectOrg(value); // TODO fix error
+    const newConfig = selectOrg(value);
     if (!newConfig) return;
     updateJSON(newConfig);
   }

@@ -43,7 +43,7 @@ program
     .option("-o, --org", "Set organization")
     .option("-i, --identifier", "Regex for the member identifier. Ex: alu[0-9]{10} for alu0101204512")
     .option("-a, --assignment", "Regex for the current assignment. Ex: turingMachine-* for turingMachine-alu0101204512")
-    .option("-t, --team", "Regex to get information from team name. Ex: \"(?<name>.*?)\.(?<id>.*?)\.(?<login>.*[^\s*])\"")
+    .option("-t, --team", "Regex to get information from team name. Ex: \"(?<name>.*?)\\.(?<id>.*?)\\.(?<login>.*[^\s*])\"")
     .option("-q --quiet", "Don't show any log or warning information. The result will be printed anyway")
     .description("Set some values in the configuration file")
     .action((value, config) => {
@@ -103,10 +103,8 @@ for (const plugin of Object.keys((config.commands))) {
         .helpOption(false)
         .action((_, commandObj) => {
         const { code } = shell.exec(`gh extension exec edu-${plugin} ${commandObj.args.join(' ')}`, { silent: false });
-        if (code != 0) {
-            if (code == 127) // doesn't found the binary
-                console.error(`${plugin} is not installed\nPlease use gh edu remove command to remove plugins, or install it again`);
-        }
+        if (code == 127) // doesn't found the binary
+            console.error(`${plugin} is not installed\nPlease use gh edu remove command to remove plugins, or install it again`);
     });
 }
 program.configureHelp({ commandUsage: (_) => "gh edu [options] [command]" });
